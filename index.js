@@ -92,9 +92,8 @@ app.post('/generate', requireLogin, async (req, res) => {
     const filename = `${ad}_${soyad}.pdf`;
     const pdfBytes = await pdfDoc.save();
 
-    const logs = JSON.parse(fs.readFileSync(LOGS_FILE));
-    logs.push({ user: req.session.username, tc, ad, soyad, date: new Date().toISOString() });
-    fs.writeFileSync(LOGS_FILE, JSON.stringify(logs, null, 2));
+    const stmt = db.prepare('INSERT INTO logs (user, tc, ad, soyad, date) VALUES (?, ?, ?, ?, ?)');
+stmt.run(req.session.username, tc, ad, soyad, new Date().toISOString());
 
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', `attachment; filename="${encodeURIComponent(filename)}"`);
