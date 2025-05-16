@@ -8,9 +8,6 @@
   <!-- Poppins fontları -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;600&display=swap" rel="stylesheet">
 
-  <!-- Tailwind (CDN) -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
   <style>
     body {
       background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/wallpaper.jpg');
@@ -30,7 +27,7 @@
     .logo-text-rgb {
       font-size: 20px;
       color: white;
-      font-weight: 100; /* Poppins Thin */
+      font-weight: 100;
       text-align: center;
       margin-bottom: 20px;
       position: relative;
@@ -105,101 +102,122 @@
       color: #bbb;
     }
 
+    /* BUTON */
+    .btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 3rem;
+      background-size: 300% 300%;
+      cursor: pointer;
+      backdrop-filter: blur(1rem);
+      border-radius: 1.5rem;
+      transition: 0.5s;
+      animation: gradient_301 5s ease infinite;
+      border: double 3px transparent;
+      background-image: linear-gradient(#000, #000),
+        linear-gradient(137.48deg, #ffdb3b 10%, #fe53bb 45%, #8f51ea 67%, #0044ff 87%);
+      background-origin: border-box;
+      background-clip: content-box, border-box;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+    }
+
+    .btn:active {
+      border: double 4px #fe53bb;
+    }
+
+    .btn strong {
+      z-index: 2;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 1px;
+      color: #ffffff;
+      text-shadow: 0 0 4px white;
+    }
+
+    #container-stars {
+      position: absolute;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      border-radius: 1.5rem;
+    }
+
+    #stars, #stars::after, #stars::before {
+      position: absolute;
+      width: 200rem;
+      height: 200rem;
+      background-image: radial-gradient(#ffffff 1px, transparent 1%);
+      background-size: 50px 50px;
+      content: "";
+    }
+
+    #stars::after {
+      top: -10rem;
+      left: -100rem;
+      animation: animStarRotate 90s linear infinite;
+    }
+
+    #stars::before {
+      top: 0;
+      left: -50%;
+      animation: animStar 60s linear infinite;
+      opacity: 0.5;
+    }
+
+    @keyframes animStar {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-135rem); }
+    }
+
+    @keyframes animStarRotate {
+      0% { transform: rotate(360deg); }
+      100% { transform: rotate(0); }
+    }
+
+    @keyframes gradient_301 {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    #glow {
+      position: absolute;
+      display: flex;
+      width: 12rem;
+      z-index: 1;
+    }
+
+    .circle {
+      width: 100%;
+      height: 30px;
+      filter: blur(2rem);
+      animation: pulse_3011 4s infinite;
+    }
+
+    .circle:nth-of-type(1) { background: rgba(254, 83, 186, 0.3); }
+    .circle:nth-of-type(2) { background: rgba(142, 81, 234, 0.3); }
+
+    @keyframes pulse_3011 {
+      0% { transform: scale(0.75); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(0, 0, 0, 0); }
+      100% { transform: scale(0.75); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); }
+    }
+
     .footer-text {
       font-weight: 100;
       font-family: 'Poppins', sans-serif;
       color: white;
       margin-top: 20px;
     }
-
-    /* PDF OLUŞTUR BUTONU ANİMASYONU */
-    button {
-      background-color: #000;
-      color: white;
-      position: relative;
-      overflow: hidden;
-      border-radius: 8px;
-      z-index: 1;
-    }
-
-    /* Neon çerçeve arkası */
-    button::after {
-      content: '';
-      position: absolute;
-      top: -10px;
-      left: -10px;
-      width: calc(100% + 20px);
-      height: calc(100% + 20px);
-      border-radius: 12px;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent 80%);
-      filter: blur(8px);
-      animation: neon-rotate 6s linear infinite;
-      z-index: 0;
-      opacity: 0.4;
-    }
-
-    @keyframes neon-rotate {
-      0% {
-        transform: rotate(0deg) scale(1);
-      }
-      50% {
-        transform: rotate(180deg) scale(1.05);
-      }
-      100% {
-        transform: rotate(360deg) scale(1);
-      }
-    }
-
-    /* Dış çerçevede dönen ince çizgi */
-    button::after {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      width: calc(100% + 4px);
-      height: calc(100% + 4px);
-      border-radius: 10px;
-      background: linear-gradient(90deg, rgba(255,255,255,0.7), transparent);
-      animation: borderLoop 4s linear infinite;
-      z-index: 0;
-      pointer-events: none;
-      mask: 
-        linear-gradient(#000 0 0) content-box, 
-        linear-gradient(#000 0 0);
-      -webkit-mask: 
-        linear-gradient(#000 0 0) content-box, 
-        linear-gradient(#000 0 0);
-      mask-composite: exclude;
-      -webkit-mask-composite: destination-out;
-      padding: 2px;
-      box-sizing: border-box;
-    }
-
-    /* Yazı üstte kalsın */
-    button span {
-      position: relative;
-      z-index: 2;
-    }
-
-    /* Animasyon tanımı */
-    @keyframes borderLoop {
-      0% {
-        background-position: 0% 0%;
-      }
-      25% {
-        background-position: 100% 0%;
-      }
-      50% {
-        background-position: 100% 100%;
-      }
-      75% {
-        background-position: 0% 100%;
-      }
-      100% {
-        background-position: 0% 0%;
-      }
-    }
-
   </style>
 </head>
 <body>
@@ -210,32 +228,20 @@
     <input type="text" name="tc" placeholder="T.C. Kimlik No" required />
     <input type="text" name="ad" placeholder="Ad" required />
     <input type="text" name="soyad" placeholder="Soyad" required />
-
-    <!-- Mevcut işlevi bozmayan buton -->
-    <button type="submit">
-      <span>PDF Oluştur</span>
+    
+    <!-- BUTON -->
+    <button type="submit" class="btn">
+      <strong>PDF OLUŞTUR</strong>
+      <div id="container-stars">
+        <div id="stars"></div>
+      </div>
+      <div id="glow">
+        <div class="circle"></div>
+        <div class="circle"></div>
+      </div>
     </button>
   </form>
 
-  <!-- Telegram yazısı -->
   <div class="footer-text">TELEGRAM : CENGİZZATAY</div>
-
-  <!-- Yeni Tailwind buton -->
-  <button
-    class="relative mt-4 inline-flex h-12 active:scale-95 transition overflow-hidden rounded-lg p-[1px] focus:outline-none"
-    onclick="window.open('https://t.me/CENGIZZATAY', '_blank')"
-  >
-    <span
-      class="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#e7029a_0%,#f472b6_50%,#bd5fff_100%)]"
-    ></span>
-    <span
-      class="inline-flex h-full w-full items-center justify-center rounded-lg bg-slate-950 px-7 text-sm font-medium text-white backdrop-blur-3xl gap-2"
-    >
-      Contact me
-      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-        <path d="M429.6 92.1c4.9-11.9 2.1-25.6-7-34.7s-22.8-11.9-34.7-7l-352 144c-14.2 5.8-22.2 20.8-19.3 35.8s16.1 25.8 31.4 25.8H224V432c0 15.3 10.8 28.4 25.8 31.4s30-5.1 35.8-19.3l144-352z"></path>
-      </svg>
-    </span>
-  </button>
 </body>
 </html>
