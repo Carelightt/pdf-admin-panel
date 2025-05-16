@@ -138,4 +138,36 @@ app.post('/admin/delete', requireLogin, requireAdmin, (req, res) => {
     res.redirect('/admin');
 });
 
+app.get('/admin/logs', requireLogin, requireAdmin, (req, res) => {
+    const logs = JSON.parse(fs.readFileSync(LOGS_FILE));
+    let html = `
+    <h2>PDF Geçmişi</h2>
+    <table border="1" cellspacing="0" cellpadding="8" style="background:#121212;color:white;width:100%;font-family:sans-serif;border-collapse:collapse;">
+      <thead>
+        <tr style="background:#1e1e1e;">
+          <th>Tarih</th>
+          <th>Kullanıcı</th>
+          <th>Ad</th>
+          <th>Soyad</th>
+          <th>TC</th>
+        </tr>
+      </thead>
+      <tbody>
+    `;
+    logs.forEach(log => {
+        html += `
+        <tr>
+          <td>${log.date}</td>
+          <td>${log.user}</td>
+          <td>${log.ad}</td>
+          <td>${log.soyad}</td>
+          <td>${log.tc}</td>
+        </tr>
+        `;
+    });
+    html += '</tbody></table>';
+    res.send(html);
+});
+
+
 app.listen(PORT, () => console.log(`http://localhost:${PORT} çalışıyor...`));
