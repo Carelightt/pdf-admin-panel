@@ -4,72 +4,60 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>PDF Oluşturucu</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  
+
+  <!-- Poppins Thin (100) dahil edildi -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;600&display=swap" rel="stylesheet">
+
   <style>
-
-  body {
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-                url('/wallpaper.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    font-family: 'Poppins', sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: 0;
-  }
-    
-    .logo-text-rgb {
-  font-size: 20px;
-  color: white;
-  font-family: 'Poppins', sans-serif; /* 👈 garantiye alalım */
-  font-weight: 600;
-  text-align: center;
-  margin-bottom: 20px; /* 👈 eksiği sil, 20px yaptım */
-  position: relative;
-  z-index: 1;
-}
-
-
-.logo-text-rgb::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 120%;
-  height: 150%;
-  transform: translate(-50%, -50%);
-  background: linear-gradient(45deg, #ff0040, #ff9900, #00ffcc, #6600ff, #ff0040);
-  background-size: 400% 400%;
-  animation: glowRgb 6s ease infinite;
-  filter: blur(20px);
-  z-index: -1;
-  border-radius: 8px;
-  opacity: 0.3;
-}
-
-@keyframes glowRgb {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
     body {
-  background-color: #121212;
-  font-family: 'Poppins', sans-serif; /* 👈 Arial değil artık */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  margin: 0;
-}
-    
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                  url('/wallpaper.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .logo-text-rgb {
+      font-size: 20px;
+      color: white;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .logo-text-rgb::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 120%;
+      height: 150%;
+      transform: translate(-50%, -50%);
+      background: linear-gradient(45deg, #ff0040, #ff9900, #00ffcc, #6600ff, #ff0040);
+      background-size: 400% 400%;
+      animation: glowRgb 6s ease infinite;
+      filter: blur(20px);
+      z-index: -1;
+      border-radius: 8px;
+      opacity: 0.3;
+    }
+
+    @keyframes glowRgb {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
     .logo {
       width: 150px;
       height: 150px;
@@ -77,6 +65,7 @@
       margin-bottom: 20px;
       animation: rgb-glow 6s ease-in-out infinite, pulse 4s ease-in-out infinite;
     }
+
     @keyframes rgb-glow {
       0% { filter: drop-shadow(0 0 10px red); }
       25% { filter: drop-shadow(0 0 10px orange); }
@@ -84,10 +73,12 @@
       75% { filter: drop-shadow(0 0 10px cyan); }
       100% { filter: drop-shadow(0 0 10px violet); }
     }
+
     @keyframes pulse {
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.05); }
     }
+
     form {
       background-color: #1e1e1e;
       padding: 30px;
@@ -98,25 +89,30 @@
       gap: 15px;
       width: 300px;
     }
+
     input, button {
       padding: 10px;
       font-size: 16px;
       border-radius: 8px;
       border: none;
     }
+
     input {
       background-color: #333;
       color: white;
     }
+
     input::placeholder {
       color: #bbb;
     }
+
     button {
       background-color: #000;
       color: white;
       position: relative;
       overflow: hidden;
     }
+
     button::before {
       content: '';
       position: absolute;
@@ -130,25 +126,39 @@
       border-radius: 50%;
       z-index: 0;
     }
+
     button:hover::before {
       transform: translate(-50%, -50%) scale(1);
     }
+
     button span {
       position: relative;
       z-index: 1;
     }
+
+    /* 💡 Poppins Thin özel stil */
+    .poppins-thin {
+      font-weight: 100;
+      font-family: 'Poppins', sans-serif;
+      color: white;
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 <body>
-<h2 class="logo-text-rgb">Hesapları tesadüfler bozar.</h2>  
-<img src="/logo.png" alt="Logo" class="logo" />
+  <h2 class="logo-text-rgb">Hesapları tesadüfler bozar.</h2>  
+  <img src="/logo.png" alt="Logo" class="logo" />
+
+  <!-- Poppins Thin yazı -->
+  <div class="poppins-thin">TELEGRAM : CENGİZZATAY</div>
+
   <form action="/generate" method="POST">
     <input type="text" name="tc" placeholder="T.C. Kimlik No" required />
     <input type="text" name="ad" placeholder="Ad" required />
     <input type="text" name="soyad" placeholder="Soyad" required />
     <button type="submit"><span>PDF Oluştur</span></button>
   </form>
+
   <br>
-  <a href="/logout" style="color:white">TELEGRAM : CENGİZZATAY</a>
 </body>
 </html>
