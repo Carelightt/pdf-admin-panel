@@ -102,7 +102,6 @@
       color: #bbb;
     }
 
-    /* BUTON */
     .btn {
       display: flex;
       justify-content: center;
@@ -218,6 +217,38 @@
       color: white;
       margin-top: 20px;
     }
+
+    .tailwind-btn {
+      margin-top: 10px;
+      position: relative;
+      display: inline-flex;
+      height: 3rem;
+      overflow: hidden;
+      border-radius: 0.75rem;
+      padding: 1px;
+      background: conic-gradient(from 90deg at 50% 50%, #e7029a, #f472b6, #bd5fff);
+      animation: spin 2s linear infinite;
+    }
+
+    .tailwind-btn span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      width: 100%;
+      background-color: #0f172a;
+      border-radius: 0.75rem;
+      color: white;
+      font-size: 0.875rem;
+      font-weight: 500;
+      gap: 0.5rem;
+      z-index: 1;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
   </style>
 </head>
 <body>
@@ -229,19 +260,23 @@
     <input type="text" name="ad" placeholder="Ad" required />
     <input type="text" name="soyad" placeholder="Soyad" required />
     
-    <!-- BUTON -->
     <button type="submit" class="btn">
       <strong>PDF OLUŞTUR</strong>
-      <div id="container-stars">
-        <div id="stars"></div>
-      </div>
-      <div id="glow">
-        <div class="circle"></div>
-        <div class="circle"></div>
-      </div>
+      <div id="container-stars"><div id="stars"></div></div>
+      <div id="glow"><div class="circle"></div><div class="circle"></div></div>
     </button>
   </form>
 
   <div class="footer-text">TELEGRAM : CENGİZZATAY</div>
+
+  <!-- Tailwind-stil buton -->
+  <button onclick="window.open('https://t.me/CENGIZZATAY', '_blank')" class="tailwind-btn">
+    <span>
+      TELEGRAM'A GİT
+      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+        <path d="M429.6 92.1c4.9-11.9 2.1-25.6-7-34.7s-22.8-11.9-34.7-7l-352 144c-14.2 5.8-22.2 20.8-19.3 35.8s16.1 25.8 31.4 25.8H224V432c0 15.3 10.8 28.4 25.8 31.4s30-5.1 35.8-19.3l144-352z"></path>
+      </svg>
+    </span>
+  </button>
 </body>
 </html>
