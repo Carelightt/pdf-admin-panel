@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -18,12 +17,6 @@
       z-index: 0;
       top: 0;
       left: 0;
-    }
-
-    #neon-border {
-      position: absolute;
-      pointer-events: none;
-      z-index: 1;
     }
 
     body {
@@ -201,8 +194,8 @@
   </style>
 </head>
 <body>
+  <!-- Particle arka plan -->
   <div id="particles-js"></div>
-  <canvas id="neon-border"></canvas>
 
   <h2 class="logo-text-rgb">Hesapları tesadüfler bozar.</h2>
   <img src="/logo.png" alt="Logo" class="logo" />
@@ -227,6 +220,7 @@
     </span>
   </button>
 
+  <!-- Particles.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <script>
     particlesJS("particles-js", {
@@ -247,35 +241,6 @@
         }
       }
     });
-
-    const canvas = document.getElementById('neon-border');
-    const ctx = canvas.getContext('2d');
-
-    function drawNeonBorder() {
-      const form = document.querySelector('form');
-      const rect = form.getBoundingClientRect();
-
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      ctx.shadowBlur = 20;
-      ctx.shadowColor = '#00ffff';
-      ctx.strokeStyle = '#00ffff';
-      ctx.lineWidth = 2;
-
-      ctx.beginPath();
-      ctx.moveTo(rect.left, rect.top);
-      ctx.lineTo(rect.right, rect.top);
-      ctx.lineTo(rect.right, rect.bottom);
-      ctx.lineTo(rect.left, rect.bottom);
-      ctx.closePath();
-      ctx.stroke();
-    }
-
-    window.addEventListener('resize', drawNeonBorder);
-    window.addEventListener('load', drawNeonBorder);
   </script>
 </body>
 </html>
-
