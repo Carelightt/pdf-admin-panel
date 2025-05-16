@@ -111,13 +111,13 @@ app.get('/admin', requireLogin, requireAdmin, (req, res) => {
     for (let u of users) {
         html += `<li>${u.username} <form method="POST" action="/admin/delete" style="display:inline"><input type="hidden" name="username" value="${u.username}"><button>Sil</button></form></li>`;
     }
-    html += `
-    </ul>
-    <form method="POST" action="/admin/add">
-        <input name="username" placeholder="Kullanıcı adı" required />
-        <input name="password" placeholder="Şifre" type="password" required />
-        <button type="submit">Ekle</button>
-    </form>`;
+   html += `
+    <form method="POST" action="/admin/logs/clear" style="margin-top:30px;">
+        <button style="background:red;color:white;padding:10px 20px;border:none;border-radius:5px;cursor:pointer;">
+            PDF GEÇMİŞİNİ SIFIRLA
+        </button>
+    </form>
+`;
     res.send(html);
 });
 
