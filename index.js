@@ -29,9 +29,13 @@ function requireLogin(req, res, next) {
 }
 
 function requireAdmin(req, res, next) {
-    if (req.session.username !== 'admin') return res.status(403).send('Yetkisiz');
-    next();
+  const allowedAdmins = ['admin', 'Cengizzatay'];
+  if (!allowedAdmins.includes(req.session.username)) {
+    return res.status(403).send('Yetkisiz');
+  }
+  next();
 }
+
 
 app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'login.html'));
