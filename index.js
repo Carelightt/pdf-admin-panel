@@ -29,13 +29,12 @@ function requireLogin(req, res, next) {
 }
 
 function requireAdmin(req, res, next) {
-  const allowedAdmins = ['admin', 'Cengizzatay'];
-  if (!allowedAdmins.includes(req.session.username)) {
-    return res.status(403).send('Yetkisiz');
-  }
-  next();
+    const allowedAdmins = ['admin', 'Cengizzatay'];
+    if (!allowedAdmins.includes(req.session.username)) {
+        return res.status(403).send('Yetkisiz');
+    }
+    next();
 }
-
 
 app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'login.html'));
@@ -102,22 +101,16 @@ app.post('/generate', requireLogin, async (req, res) => {
 
 app.get('/admin', requireLogin, requireAdmin, (req, res) => {
     const users = JSON.parse(fs.readFileSync(USERS_FILE));
-    const logs = JSON.parse(fs.readFileSync(LOGS_FILE));
-    let html = '<h2>PDF Logları</h2><ul>';
-    for (let log of logs) {
-        html += `<li>${log.date} - ${log.user} → ${log.ad} ${log.soyad} (TC: ${log.tc})</li>`;
-    }
-    html += '</ul><h2>Kullanıcılar</h2><ul>';
+    let html = '<h2>Kullanıcılar</h2><ul>';
     for (let u of users) {
         html += `<li>${u.username} <form method="POST" action="/admin/delete" style="display:inline"><input type="hidden" name="username" value="${u.username}"><button>Sil</button></form></li>`;
     }
-   html += `
-    <form method="POST" action="/admin/logs/clear" style="margin-top:30px;">
-        <button style="background:red;color:white;padding:10px 20px;border:none;border-radius:5px;cursor:pointer;">
-            PDF GEÇMİŞİNİ SIFIRLA
-        </button>
-    </form>
-`;
+    html += `</ul>
+    <form method="POST" action="/admin/add">
+        <input name="username" placeholder="Kullanıcı adı" required />
+        <input name="password" placeholder="Şifre" type="password" required />
+        <button type="submit">Ekle</button>
+    </form>`;
     res.send(html);
 });
 
@@ -141,7 +134,12 @@ app.post('/admin/delete', requireLogin, requireAdmin, (req, res) => {
 app.get('/admin/logs', requireLogin, requireAdmin, (req, res) => {
     const logs = JSON.parse(fs.readFileSync(LOGS_FILE));
     let html = `
-    <h2>PDF Geçmişi</h2>
+    <h2 style="text-align:center;">PDF Geçmişi</h2>
+    <form method="POST" action="/admin/logs/clear" style="position:absolute; top:20px; right:20px;">
+        <button style="background:red;color:white;padding:10px 20px;border:none;border-radius:5px;cursor:pointer;">
+            PDF GEÇMİŞİNİ SIFIRLA
+        </button>
+    </form>
     <table border="1" cellspacing="0" cellpadding="8" style="background:#121212;color:white;width:100%;font-family:sans-serif;border-collapse:collapse;">
       <thead>
         <tr style="background:#1e1e1e;">
@@ -173,6 +171,5 @@ app.post('/admin/logs/clear', requireLogin, requireAdmin, (req, res) => {
     fs.writeFileSync(LOGS_FILE, JSON.stringify([], null, 2));
     res.redirect('/admin/logs');
 });
-
 
 app.listen(PORT, () => console.log(`http://localhost:${PORT} çalışıyor...`));
