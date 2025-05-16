@@ -146,14 +146,16 @@ button::after {
 button {
   background-color: #000;
   color: white;
-  position: relative;
   border-radius: 8px;
-  border: 2px solid transparent;
+  position: relative;
   z-index: 1;
   overflow: hidden;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
 }
 
-/* Dış çerçevedeki beyaz neon glow animasyonu */
+/* Dış çerçevede dönen ince çizgi */
 button::after {
   content: '';
   position: absolute;
@@ -162,30 +164,20 @@ button::after {
   width: calc(100% + 4px);
   height: calc(100% + 4px);
   border-radius: 10px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
-  background-size: 200% 100%;
-  animation: border-glow 3s linear infinite;
+  background: linear-gradient(90deg, rgba(255,255,255,0.7), transparent);
+  animation: borderLoop 4s linear infinite;
   z-index: 0;
   pointer-events: none;
-}
-
-/* İçteki radial efekt hover olduğunda büyür */
-button::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 300%;
-  height: 300%;
-  background: radial-gradient(circle, rgba(255,255,255,0.2), transparent 70%);
-  transform: translate(-50%, -50%) scale(0);
-  transition: transform 0.5s ease;
-  border-radius: 50%;
-  z-index: 1;
-}
-
-button:hover::before {
-  transform: translate(-50%, -50%) scale(1);
+  mask: 
+    linear-gradient(#000 0 0) content-box, 
+    linear-gradient(#000 0 0);
+  -webkit-mask: 
+    linear-gradient(#000 0 0) content-box, 
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: destination-out;
+  padding: 2px;
+  box-sizing: border-box;
 }
 
 /* Yazı üstte kalsın */
@@ -194,13 +186,22 @@ button span {
   z-index: 2;
 }
 
-/* Glow animasyonu tanımı */
-@keyframes border-glow {
+/* Animasyon tanımı */
+@keyframes borderLoop {
   0% {
-    background-position: 0% 50%;
+    background-position: 0% 0%;
+  }
+  25% {
+    background-position: 100% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  75% {
+    background-position: 0% 100%;
   }
   100% {
-    background-position: 100% 50%;
+    background-position: 0% 0%;
   }
 }
 
