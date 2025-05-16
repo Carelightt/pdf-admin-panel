@@ -106,62 +106,82 @@
       color: #bbb;
     }
 
-    button {
-      background-color: #000;
-      color: white;
-      position: relative;
-      overflow: hidden;
-      border-radius: 8px;
-      z-index: 1;
-    }
+   <style>
+button {
+  background-color: #000;
+  color: white;
+  position: relative;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 24px;
+  font-size: 16px;
+  z-index: 1;
+  overflow: hidden;
+}
 
-    button span {
-      position: relative;
-      z-index: 2;
-    }
+/* Dış çerçevede dönen beyaz çizgi */
+button::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  border-radius: 12px;
+  background: none;
+  border: 1px solid transparent;
+  pointer-events: none;
+  z-index: 2;
+}
 
-    /* Dış çerçevede dönen ince beyaz çizgi */
-    button::after {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      width: calc(100% + 4px);
-      height: calc(100% + 4px);
-      border-radius: 10px;
-      border: 1px solid transparent;
-      background: linear-gradient(90deg, white, transparent, white, transparent);
-      background-size: 200% 200%;
-      animation: borderLoop 3s linear infinite;
-      z-index: 0;
-      pointer-events: none;
-    }
+button::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  border-radius: 12px;
+  background: linear-gradient(90deg, white 0%, transparent 50%, white 100%);
+  background-size: 200% 200%;
+  animation: rotateBorder 4s linear infinite;
+  z-index: 0;
+  pointer-events: none;
+  mask: 
+    linear-gradient(#000 0 0) content-box, 
+    linear-gradient(#000 0 0);
+  -webkit-mask: 
+    linear-gradient(#000 0 0) content-box, 
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: destination-out;
+  padding: 2px;
+  box-sizing: border-box;
+}
 
-    @keyframes borderLoop {
-      0% {
-        background-position: 0% 0%;
-      }
-      25% {
-        background-position: 100% 0%;
-      }
-      50% {
-        background-position: 100% 100%;
-      }
-      75% {
-        background-position: 0% 100%;
-      }
-      100% {
-        background-position: 0% 0%;
-      }
-    }
+@keyframes rotateBorder {
+  0% {
+    background-position: 0% 0%;
+  }
+  25% {
+    background-position: 100% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  75% {
+    background-position: 0% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
 
-    .footer-text {
-      font-weight: 100; /* Poppins Thin */
-      font-family: 'Poppins', sans-serif;
-      color: white;
-      margin-top: 20px;
-    }
-  </style>
+button span {
+  position: relative;
+  z-index: 3;
+}
+</style>
 </head>
 <body>
   <h2 class="logo-text-rgb">Hesapları tesadüfler bozar.</h2>  
