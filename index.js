@@ -138,7 +138,6 @@ app.post('/admin/delete', requireLogin, requireAdmin, (req, res) => {
 });
 
 // GEÇİCİ: Admin kullanıcıyı ekle
-const Database = require('better-sqlite3');
 const db = new Database(path.join(__dirname, 'data', 'users.db'));
 const bcrypt = require('bcrypt');
 
