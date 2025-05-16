@@ -138,7 +138,6 @@ app.post('/admin/delete', requireLogin, requireAdmin, (req, res) => {
 });
 
 // GEÇİCİ: Admin kullanıcıyı ekle
-const bcrypt = require('bcrypt');
 
 const username = 'CengizzAtay';
 const plainPassword = 'Mceroglu1.';
