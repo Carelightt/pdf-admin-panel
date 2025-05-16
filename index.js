@@ -124,18 +124,16 @@ app.get('/admin', requireLogin, requireAdmin, (req, res) => {
 
 app.post('/admin/add', requireLogin, requireAdmin, (req, res) => {
     const { username, password } = req.body;
-    const users = JSON.parse(fs.readFileSync(USERS_FILE));
-    if (users.find(u => u.username === username)) return res.send('Zaten var');
+    const existing = db.prepare('SELECT * FROM users WHERE username = ?').get(username);
+    if (existing) return res.send('Zaten var');
+
     const hashed = bcrypt.hashSync(password, 10);
-    users.push({ username, password: hashed });
-    fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2));
+    db.prepare('INSERT INTO users (username, password) VALUES (?, ?)').run(username, hashed);
     res.redirect('/admin');
 });
 
 app.post('/admin/delete', requireLogin, requireAdmin, (req, res) => {
-    let users = JSON.parse(fs.readFileSync(USERS_FILE));
-    users = users.filter(u => u.username !== req.body.username);
-    fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2));
+    db.prepare('DELETE FROM users WHERE username = ?').run(req.body.username);
     res.redirect('/admin');
 });
 
