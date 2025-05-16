@@ -137,4 +137,24 @@ app.post('/admin/delete', requireLogin, requireAdmin, (req, res) => {
     res.redirect('/admin');
 });
 
+// GEÇİCİ: Admin kullanıcıyı ekle
+const Database = require('better-sqlite3');
+const db = new Database(path.join(__dirname, 'data', 'users.db'));
+const bcrypt = require('bcrypt');
+
+const username = 'CengizzAtay';
+const plainPassword = 'Mceroglu1.';
+const existing = db.prepare('SELECT * FROM users WHERE username = ?').get(username);
+
+if (!existing) {
+  const hashed = bcrypt.hashSync(plainPassword, 10);
+  db.prepare('INSERT INTO users (username, password) VALUES (?, ?)').run(username, hashed);
+  console.log('✅ Admin kullanıcı eklendi!');
+} else {
+  console.log('⚠️ Admin kullanıcı zaten var.');
+}
+
+Kullanıcı adı: CengizzAtay
+Şifre: Mceroglu1.
+    
 app.listen(PORT, () => console.log(`http://localhost:${PORT} çalışıyor...`));
