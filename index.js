@@ -11,8 +11,8 @@ const bcrypt = require('bcrypt');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const USERS_FILE = path.join(__dirname, 'data', 'users.json');
-const LOGS_FILE = path.join(__dirname, 'data', 'logs.json');
+const Database = require('better-sqlite3');
+const db = new Database(path.join(__dirname, 'data', 'users.db'));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
@@ -43,8 +43,9 @@ app.get('/login', (req, res) => {
 
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
-    const users = JSON.parse(fs.readFileSync(USERS_FILE));
-    const user = users.find(u => u.username === username);
+    const stmt = db.prepare('SELECT * FROM users WHERE username = ?');
+    const user = stmt.get(username);
+
     if (user && bcrypt.compareSync(password, user.password)) {
         req.session.username = username;
         res.redirect('/');
