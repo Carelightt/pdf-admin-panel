@@ -151,6 +151,6 @@ if (!existing) {
 }
 
 // Kullanıcı adı: CengizzAtay
-Şifre: Mceroglu1.
+// Şifre: Mceroglu1.
     
 app.listen(PORT, () => console.log(`http://localhost:${PORT} çalışıyor...`));
