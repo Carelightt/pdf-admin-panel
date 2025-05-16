@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PDF Oluşturucu</title>
+  <style>
+    body {
+      background-color: #121212;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .logo {
+      width: 150px;
+      height: 150px;
+      object-fit: contain;
+      margin-bottom: 20px;
+      animation: rgb-glow 6s ease-in-out infinite, pulse 4s ease-in-out infinite;
+    }
+    @keyframes rgb-glow {
+      0% { filter: drop-shadow(0 0 10px red); }
+      25% { filter: drop-shadow(0 0 10px orange); }
+      50% { filter: drop-shadow(0 0 10px lime); }
+      75% { filter: drop-shadow(0 0 10px cyan); }
+      100% { filter: drop-shadow(0 0 10px violet); }
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    form {
+      background-color: #1e1e1e;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 300px;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+    }
+    input {
+      background-color: #333;
+      color: white;
+    }
+    input::placeholder {
+      color: #bbb;
+    }
+    button {
+      background-color: #000;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    button::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 300%;
+      height: 300%;
+      background: radial-gradient(circle, rgba(255,255,255,0.2), transparent 70%);
+      transform: translate(-50%, -50%) scale(0);
+      transition: transform 0.5s ease;
+      border-radius: 50%;
+      z-index: 0;
+    }
+    button:hover::before {
+      transform: translate(-50%, -50%) scale(1);
+    }
+    button span {
+      position: relative;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+  <img src="/logo.png" alt="Logo" class="logo" />
+  <form action="/generate" method="POST">
+    <input type="text" name="tc" placeholder="T.C. Kimlik No" required />
+    <input type="text" name="ad" placeholder="Ad" required />
+    <input type="text" name="soyad" placeholder="Soyad" required />
+    <button type="submit"><span>PDF Oluştur</span></button>
+  </form>
+  <br>
+  <a href="/logout" style="color:white">Çıkış Yap</a>
+</body>
+</html>
