@@ -169,5 +169,10 @@ app.get('/admin/logs', requireLogin, requireAdmin, (req, res) => {
     res.send(html);
 });
 
+app.post('/admin/logs/clear', requireLogin, requireAdmin, (req, res) => {
+    fs.writeFileSync(LOGS_FILE, JSON.stringify([], null, 2));
+    res.redirect('/admin/logs');
+});
+
 
 app.listen(PORT, () => console.log(`http://localhost:${PORT} çalışıyor...`));
