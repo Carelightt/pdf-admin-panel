@@ -9,6 +9,35 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;600&display=swap" rel="stylesheet">
 
   <style>
+    /* Loader stilleri */
+    #loader-wrapper {
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      background-color: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .loader {
+      width: 45px;
+      height: 40px;
+      background: linear-gradient(#0000 calc(1*100%/6),#fff 0 calc(3*100%/6),#0000 0),
+                  linear-gradient(#0000 calc(2*100%/6),#fff 0 calc(4*100%/6),#0000 0),
+                  linear-gradient(#0000 calc(3*100%/6),#fff 0 calc(5*100%/6),#0000 0);
+      background-size: 10px 400%;
+      background-repeat: no-repeat;
+      animation: matrix 1s infinite linear;
+    }
+
+    @keyframes matrix {
+      0% { background-position: 0% 100%, 50% 100%, 100% 100% }
+      100% { background-position: 0% 0%, 50% 0%, 100% 0% }
+    }
+
+    /* Geri kalan stiller (değişmeden bırakıldı) */
     body {
       background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/wallpaper.jpg');
       background-size: cover;
@@ -123,13 +152,8 @@
       overflow: hidden;
     }
 
-    .btn:hover {
-      transform: scale(1.05);
-    }
-
-    .btn:active {
-      border: double 4px #fe53bb;
-    }
+    .btn:hover { transform: scale(1.05); }
+    .btn:active { border: double 4px #fe53bb; }
 
     .btn strong {
       z-index: 2;
@@ -244,14 +268,13 @@
       gap: 0.5rem;
       z-index: 1;
     }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
   </style>
 </head>
 <body>
+  <!-- Loader -->
+  <div id="loader-wrapper"><div class="loader"></div></div>
+
+  <!-- Ana içerik -->
   <h2 class="logo-text-rgb">Hesapları tesadüfler bozar.</h2>  
   <img src="/logo.png" alt="Logo" class="logo" />
 
@@ -259,7 +282,6 @@
     <input type="text" name="tc" placeholder="T.C. Kimlik No" required />
     <input type="text" name="ad" placeholder="Ad" required />
     <input type="text" name="soyad" placeholder="Soyad" required />
-    
     <button type="submit" class="btn">
       <strong>PDF OLUŞTUR</strong>
       <div id="container-stars"><div id="stars"></div></div>
@@ -269,7 +291,6 @@
 
   <div class="footer-text">TELEGRAM : CENGİZZATAY</div>
 
-  <!-- Tailwind-stil buton -->
   <button onclick="window.open('https://t.me/CENGIZZATAY', '_blank')" class="tailwind-btn">
     <span>
       TELEGRAM'A GİT
@@ -278,5 +299,12 @@
       </svg>
     </span>
   </button>
+
+  <!-- JS: Sayfa yüklenince loader'ı gizle -->
+  <script>
+    window.addEventListener('load', () => {
+      document.getElementById('loader-wrapper').style.display = 'none';
+    });
+  </script>
 </body>
 </html>
