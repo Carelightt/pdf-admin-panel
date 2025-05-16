@@ -5,39 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>PDF Oluşturucu</title>
 
-  <!-- Poppins fontları -->
+  <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;600&display=swap" rel="stylesheet">
 
   <style>
-    /* Loader stilleri */
-    #loader-wrapper {
+    /* Particles arka plan */
+    #particles-js {
       position: fixed;
-      width: 100vw;
-      height: 100vh;
-      background-color: #000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      top: 0;
+      left: 0;
     }
 
-    .loader {
-      width: 45px;
-      height: 40px;
-      background: linear-gradient(#0000 calc(1*100%/6),#fff 0 calc(3*100%/6),#0000 0),
-                  linear-gradient(#0000 calc(2*100%/6),#fff 0 calc(4*100%/6),#0000 0),
-                  linear-gradient(#0000 calc(3*100%/6),#fff 0 calc(5*100%/6),#0000 0);
-      background-size: 10px 400%;
-      background-repeat: no-repeat;
-      animation: matrix 1s infinite linear;
-    }
-
-    @keyframes matrix {
-      0% { background-position: 0% 100%, 50% 100%, 100% 100% }
-      100% { background-position: 0% 0%, 50% 0%, 100% 0% }
-    }
-
-    /* Geri kalan stiller */
     body {
       background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/wallpaper.jpg');
       background-size: cover;
@@ -51,6 +32,8 @@
       justify-content: center;
       height: 100vh;
       margin: 0;
+      position: relative;
+      z-index: 1;
     }
 
     .logo-text-rgb {
@@ -60,7 +43,7 @@
       text-align: center;
       margin-bottom: 20px;
       position: relative;
-      z-index: 1;
+      z-index: 2;
     }
 
     .logo-text-rgb::before {
@@ -92,6 +75,7 @@
       object-fit: contain;
       margin-bottom: 20px;
       animation: rgb-glow 6s ease-in-out infinite, pulse 4s ease-in-out infinite;
+      z-index: 2;
     }
 
     @keyframes rgb-glow {
@@ -116,6 +100,7 @@
       flex-direction: column;
       gap: 15px;
       width: 300px;
+      z-index: 2;
     }
 
     input {
@@ -165,81 +150,12 @@
       text-shadow: 0 0 4px white;
     }
 
-    #container-stars {
-      position: absolute;
-      z-index: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      border-radius: 1.5rem;
-    }
-
-    #stars, #stars::after, #stars::before {
-      position: absolute;
-      width: 200rem;
-      height: 200rem;
-      background-image: radial-gradient(#ffffff 1px, transparent 1%);
-      background-size: 50px 50px;
-      content: "";
-    }
-
-    #stars::after {
-      top: -10rem;
-      left: -100rem;
-      animation: animStarRotate 90s linear infinite;
-    }
-
-    #stars::before {
-      top: 0;
-      left: -50%;
-      animation: animStar 60s linear infinite;
-      opacity: 0.5;
-    }
-
-    @keyframes animStar {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-135rem); }
-    }
-
-    @keyframes animStarRotate {
-      0% { transform: rotate(360deg); }
-      100% { transform: rotate(0); }
-    }
-
-    @keyframes gradient_301 {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    #glow {
-      position: absolute;
-      display: flex;
-      width: 12rem;
-      z-index: 1;
-    }
-
-    .circle {
-      width: 100%;
-      height: 30px;
-      filter: blur(2rem);
-      animation: pulse_3011 4s infinite;
-    }
-
-    .circle:nth-of-type(1) { background: rgba(254, 83, 186, 0.3); }
-    .circle:nth-of-type(2) { background: rgba(142, 81, 234, 0.3); }
-
-    @keyframes pulse_3011 {
-      0% { transform: scale(0.75); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7); }
-      70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(0, 0, 0, 0); }
-      100% { transform: scale(0.75); box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); }
-    }
-
     .footer-text {
       font-weight: 100;
       font-family: 'Poppins', sans-serif;
       color: white;
       margin-top: 20px;
+      z-index: 2;
     }
 
     .tailwind-btn {
@@ -252,6 +168,7 @@
       padding: 1px;
       background: conic-gradient(from 90deg at 50% 50%, #e7029a, #f472b6, #bd5fff);
       animation: none;
+      z-index: 2;
     }
 
     .tailwind-btn span {
@@ -271,11 +188,10 @@
   </style>
 </head>
 <body>
-  <!-- Loader -->
-  <div id="loader-wrapper"><div class="loader"></div></div>
+  <!-- Particle arka plan -->
+  <div id="particles-js"></div>
 
-  <!-- Ana içerik -->
-  <h2 class="logo-text-rgb">Hesapları tesadüfler bozar.</h2>  
+  <h2 class="logo-text-rgb">Hesapları tesadüfler bozar.</h2>
   <img src="/logo.png" alt="Logo" class="logo" />
 
   <form action="/generate" method="POST">
@@ -284,8 +200,6 @@
     <input type="text" name="soyad" placeholder="Soyad" required />
     <button type="submit" class="btn">
       <strong>PDF OLUŞTUR</strong>
-      <div id="container-stars"><div id="stars"></div></div>
-      <div id="glow"><div class="circle"></div><div class="circle"></div></div>
     </button>
   </form>
 
@@ -300,10 +214,26 @@
     </span>
   </button>
 
-  <!-- JS: Sayfa yüklenince loader'ı gizle -->
+  <!-- Particles.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <script>
-    window.addEventListener('load', () => {
-      document.getElementById('loader-wrapper').style.display = 'none';
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 60 },
+        color: { value: "#ffffff" },
+        shape: { type: "circle" },
+        opacity: { value: 0.3 },
+        size: { value: 2 },
+        move: { enable: true, speed: 1 }
+      },
+      interactivity: {
+        events: {
+          onhover: { enable: true, mode: "repulse" }
+        },
+        modes: {
+          repulse: { distance: 100 }
+        }
+      }
     });
   </script>
 </body>
