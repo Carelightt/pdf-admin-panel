@@ -143,33 +143,66 @@ button::after {
   }
 }
 
+button {
+  background-color: #000;
+  color: white;
+  position: relative;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* Dış çerçevedeki beyaz neon glow animasyonu */
+button::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  border-radius: 10px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+  background-size: 200% 100%;
+  animation: border-glow 3s linear infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* İçteki radial efekt hover olduğunda büyür */
+button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300%;
+  height: 300%;
+  background: radial-gradient(circle, rgba(255,255,255,0.2), transparent 70%);
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.5s ease;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+button:hover::before {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Yazı üstte kalsın */
 button span {
   position: relative;
   z-index: 2;
 }
 
-    button::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 300%;
-      height: 300%;
-      background: radial-gradient(circle, rgba(255,255,255,0.2), transparent 70%);
-      transform: translate(-50%, -50%) scale(0);
-      transition: transform 0.5s ease;
-      border-radius: 50%;
-      z-index: 0;
-    }
-
-    button:hover::before {
-      transform: translate(-50%, -50%) scale(1);
-    }
-
-    button span {
-      position: relative;
-      z-index: 1;
-    }
+/* Glow animasyonu tanımı */
+@keyframes border-glow {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
 
     .footer-text {
       font-weight: 100; /* Poppins Thin */
