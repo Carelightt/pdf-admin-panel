@@ -30,7 +30,7 @@
     .logo-text-rgb {
       font-size: 20px;
       color: white;
-      font-weight: 100;
+      font-weight: 100; /* Poppins Thin */
       text-align: center;
       margin-bottom: 20px;
       position: relative;
@@ -111,6 +111,95 @@
       color: white;
       margin-top: 20px;
     }
+
+    /* PDF OLUŞTUR BUTONU ANİMASYONU */
+    button {
+      background-color: #000;
+      color: white;
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      z-index: 1;
+    }
+
+    /* Neon çerçeve arkası */
+    button::after {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      width: calc(100% + 20px);
+      height: calc(100% + 20px);
+      border-radius: 12px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent 80%);
+      filter: blur(8px);
+      animation: neon-rotate 6s linear infinite;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    @keyframes neon-rotate {
+      0% {
+        transform: rotate(0deg) scale(1);
+      }
+      50% {
+        transform: rotate(180deg) scale(1.05);
+      }
+      100% {
+        transform: rotate(360deg) scale(1);
+      }
+    }
+
+    /* Dış çerçevede dönen ince çizgi */
+    button::after {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      width: calc(100% + 4px);
+      height: calc(100% + 4px);
+      border-radius: 10px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.7), transparent);
+      animation: borderLoop 4s linear infinite;
+      z-index: 0;
+      pointer-events: none;
+      mask: 
+        linear-gradient(#000 0 0) content-box, 
+        linear-gradient(#000 0 0);
+      -webkit-mask: 
+        linear-gradient(#000 0 0) content-box, 
+        linear-gradient(#000 0 0);
+      mask-composite: exclude;
+      -webkit-mask-composite: destination-out;
+      padding: 2px;
+      box-sizing: border-box;
+    }
+
+    /* Yazı üstte kalsın */
+    button span {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Animasyon tanımı */
+    @keyframes borderLoop {
+      0% {
+        background-position: 0% 0%;
+      }
+      25% {
+        background-position: 100% 0%;
+      }
+      50% {
+        background-position: 100% 100%;
+      }
+      75% {
+        background-position: 0% 100%;
+      }
+      100% {
+        background-position: 0% 0%;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -123,7 +212,7 @@
     <input type="text" name="soyad" placeholder="Soyad" required />
 
     <!-- Mevcut işlevi bozmayan buton -->
-    <button type="submit" class="btn">
+    <button type="submit">
       <span>PDF Oluştur</span>
     </button>
   </form>
