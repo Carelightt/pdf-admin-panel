@@ -4,9 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>PDF Oluşturucu</title>
+
+  <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;600&display=swap" rel="stylesheet">
 
   <style>
+    /* Particles arka plan */
     #particles-js {
       position: fixed;
       width: 100%;
@@ -14,91 +17,6 @@
       z-index: 0;
       top: 0;
       left: 0;
-    }
-
-    /* PDF bekleme animasyonu */
-    #pdfbekleme {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.9);
-      z-index: 9999;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Poppins', sans-serif;
-      color: white;
-    }
-
-    #pdfbekleme .container {
-      position: relative;
-      width: 100%;
-      height: 200px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      -webkit-box-reflect: below 0 linear-gradient(transparent, transparent, #0005);
-    }
-
-    #pdfbekleme .loader {
-      position: absolute;
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      animation: animate 2s linear infinite;
-    }
-
-    #pdfbekleme .loader:nth-child(2),
-    #pdfbekleme .loader:nth-child(4) {
-      animation-delay: -1s;
-    }
-
-    @keyframes animate {
-      0% {
-        transform: rotate(0deg);
-        filter: hue-rotate(360deg);
-      }
-      100% {
-        transform: rotate(360deg);
-        filter: hue-rotate(0deg);
-      }
-    }
-
-    #pdfbekleme .loader:nth-child(1)::before,
-    #pdfbekleme .loader:nth-child(2)::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 50%;
-      height: 100%;
-      background: linear-gradient(to top, transparent, rgba(0,255,249, 0.4));
-      border-top-left-radius: 100px;
-      border-bottom-left-radius: 100px;
-    }
-
-    #pdfbekleme .loader i {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 20px;
-      height: 20px;
-      background: #00fff9;
-      border-radius: 50%;
-      box-shadow: 0 0 10px #00fff9, 0 0 30px #00fff9, 0 0 40px #00fff9,
-                  0 0 50px #00fff9, 0 0 60px #00fff9, 0 0 70px #00fff9,
-                  0 0 80px #00fff9, 0 0 90px #00fff9, 0 0 100px #00fff9;
-    }
-
-    #pdfbekleme .loader span {
-      position: absolute;
-      inset: 20px;
-      background: #e8e8e8;
-      border-radius: 50%;
-      z-index: 1;
     }
 
     body {
@@ -128,9 +46,33 @@
       z-index: 2;
     }
 
+    .logo-text-rgb::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 120%;
+      height: 150%;
+      transform: translate(-50%, -50%);
+      background: linear-gradient(45deg, #ff0040, #ff9900, #00ffcc, #6600ff, #ff0040);
+      background-size: 400% 400%;
+      animation: glowRgb 6s ease infinite;
+      filter: blur(20px);
+      z-index: -1;
+      border-radius: 8px;
+      opacity: 0.3;
+    }
+
+    @keyframes glowRgb {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
     .logo {
       width: 150px;
       height: 150px;
+      object-fit: contain;
       margin-bottom: 20px;
       animation: rgb-glow 6s ease-in-out infinite, pulse 4s ease-in-out infinite;
       z-index: 2;
@@ -175,14 +117,37 @@
     }
 
     .btn {
-      background-color: #000;
-      color: white;
-      border-radius: 1.5rem;
-      padding: 10px;
-      font-size: 14px;
-      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 3rem;
+      background-size: 300% 300%;
       cursor: pointer;
+      backdrop-filter: blur(1rem);
+      border-radius: 1.5rem;
+      transition: 0.5s;
+      animation: gradient_301 5s ease infinite;
+      border: double 3px transparent;
+      background-image: linear-gradient(#000, #000),
+        linear-gradient(137.48deg, #ffdb3b 10%, #fe53bb 45%, #8f51ea 67%, #0044ff 87%);
+      background-origin: border-box;
+      background-clip: content-box, border-box;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn:hover { transform: scale(1.05); }
+    .btn:active { border: double 4px #fe53bb; }
+
+    .btn strong {
       z-index: 2;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 1px;
+      color: #ffffff;
+      text-shadow: 0 0 4px white;
     }
 
     .footer-text {
@@ -192,27 +157,50 @@
       margin-top: 20px;
       z-index: 2;
     }
+
+    .tailwind-btn {
+      margin-top: 10px;
+      position: relative;
+      display: inline-flex;
+      height: 3rem;
+      overflow: hidden;
+      border-radius: 0.75rem;
+      padding: 1px;
+      background: conic-gradient(from 90deg at 50% 50%, #e7029a, #f472b6, #bd5fff);
+      animation: none;
+      z-index: 2;
+    }
+
+    .tailwind-btn span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      width: 100%;
+      background-color: #0f172a;
+      border-radius: 0.75rem;
+      color: white;
+      font-size: 0.875rem;
+      font-weight: 500;
+      gap: 0.5rem;
+      z-index: 1;
+    }
+
+    @keyframes gradient_301 {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
   </style>
 </head>
 <body>
   <!-- Particle arka plan -->
   <div id="particles-js"></div>
 
-  <!-- PDF Oluşturuluyor animasyonu -->
-  <div id="pdfbekleme">
-    <div class="container">
-      <div class="loader"><span></span></div>
-      <div class="loader"><span></span></div>
-      <div class="loader"><i></i></div>
-      <div class="loader"><i></i></div>
-    </div>
-    <p style="margin-top: 20px; font-size: 18px;">PDF OLUŞTURULUYOR...</p>
-  </div>
-
   <h2 class="logo-text-rgb">Hesapları tesadüfler bozar.</h2>
   <img src="/logo.png" alt="Logo" class="logo" />
 
-  <form action="/generate" method="POST" onsubmit="showLoader()">
+  <form action="/generate" method="POST">
     <input type="text" name="tc" placeholder="T.C. Kimlik No" required />
     <input type="text" name="ad" placeholder="Ad" required />
     <input type="text" name="soyad" placeholder="Soyad" required />
@@ -222,6 +210,15 @@
   </form>
 
   <div class="footer-text">TELEGRAM : CENGİZZATAY</div>
+
+  <button onclick="window.open('https://t.me/CENGIZZATAY', '_blank')" class="tailwind-btn">
+    <span>
+      TELEGRAM'A GİT
+      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+        <path d="M429.6 92.1c4.9-11.9 2.1-25.6-7-34.7s-22.8-11.9-34.7-7l-352 144c-14.2 5.8-22.2 20.8-19.3 35.8s16.1 25.8 31.4 25.8H224V432c0 15.3 10.8 28.4 25.8 31.4s30-5.1 35.8-19.3l144-352z"></path>
+      </svg>
+    </span>
+  </button>
 
   <!-- Particles.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
@@ -244,10 +241,6 @@
         }
       }
     });
-
-    function showLoader() {
-      document.getElementById("pdfbekleme").style.display = "flex";
-    }
   </script>
 </body>
 </html>
