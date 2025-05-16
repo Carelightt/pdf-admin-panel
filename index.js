@@ -1,26 +1,15 @@
 const express = require('express');
-const session = require('express-session');
 const fs = require('fs');
 const path = require('path');
 const { PDFDocument, rgb } = require('pdf-lib');
 const fontkit = require('@pdf-lib/fontkit');
 const bodyParser = require('body-parser');
-const bcrypt = require('bcrypt');
 const Database = require('better-sqlite3');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 const db = new Database(path.join(__dirname, 'data', 'users.db'));
-
-// Tablo kontrol ve oluşturma
-db.prepare(`
-  CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT,
-    password TEXT
-  )
-`).run();
 
 db.prepare(`
   CREATE TABLE IF NOT EXISTS logs (
@@ -36,51 +25,12 @@ db.prepare(`
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use('/fonts', express.static(path.join(__dirname, 'fonts')));
-app.use(session({
-  secret: 'gizli_pdf_sistemi',
-  resave: false,
-  saveUninitialized: true,
-}));
 
-function requireLogin(req, res, next) {
-  if (!req.session.username) return res.redirect('/login');
-  next();
-}
-
-function requireAdmin(req, res, next) {
-  const allowedAdmins = ['admin', 'Cengizzatay'];
-  if (!allowedAdmins.includes(req.session.username)) {
-    return res.status(403).send('Yetkisiz');
-  }
-  next();
-}
-
-app.get('/login', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'login.html'));
-});
-
-app.post('/login', (req, res) => {
-  const { username, password } = req.body;
-  const stmt = db.prepare('SELECT * FROM users WHERE username = ?');
-  const user = stmt.get(username);
-
-  if (user) {
-    req.session.username = username;
-    res.redirect('/');
-  } else {
-    res.send('Geçersiz bilgiler <a href="/login">Geri dön</a>');
-  }
-});
-
-app.get('/logout', (req, res) => {
-  req.session.destroy(() => res.redirect('/login'));
-});
-
-app.get('/', requireLogin, (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'index.html'));
 });
 
-app.post('/generate', requireLogin, async (req, res) => {
+app.post('/generate', async (req, res) => {
   const { tc, ad, soyad } = req.body;
   const templatePath = path.join(__dirname, 'public', 'sablon.pdf');
   const fontPath = path.join(__dirname, 'fonts', 'LiberationSans-Bold.ttf');
@@ -111,11 +61,7 @@ app.post('/generate', requireLogin, async (req, res) => {
   const pdfBytes = await pdfDoc.save();
 
   db.prepare('INSERT INTO logs (user, tc, ad, soyad, date) VALUES (?, ?, ?, ?, ?)').run(
-    req.session.username,
-    tc,
-    ad,
-    soyad,
-    new Date().toISOString()
+    "Anonim", tc, ad, soyad, new Date().toISOString()
   );
 
   res.setHeader('Content-Type', 'application/pdf');
@@ -123,54 +69,15 @@ app.post('/generate', requireLogin, async (req, res) => {
   res.send(Buffer.from(pdfBytes));
 });
 
-app.get('/admin', requireLogin, requireAdmin, (req, res) => {
-  const users = db.prepare('SELECT * FROM users').all();
+app.get('/admin', (req, res) => {
   const logs = db.prepare('SELECT * FROM logs ORDER BY date DESC').all();
 
   let html = '<h2>PDF Logları</h2><ul>';
   for (let log of logs) {
     html += `<li>${log.date} - ${log.user} → ${log.ad} ${log.soyad} (TC: ${log.tc})</li>`;
   }
-  html += '</ul><h2>Kullanıcılar</h2><ul>';
-  for (let u of users) {
-    html += `<li>${u.username} <form method="POST" action="/admin/delete" style="display:inline"><input type="hidden" name="username" value="${u.username}"><button>Sil</button></form></li>`;
-  }
-  html += `
-    </ul>
-    <form method="POST" action="/admin/add">
-        <input name="username" placeholder="Kullanıcı adı" required />
-        <input name="password" placeholder="Şifre" type="password" required />
-        <button type="submit">Ekle</button>
-    </form>`;
+  html += '</ul>';
   res.send(html);
 });
-
-app.post('/admin/add', requireLogin, requireAdmin, (req, res) => {
-  const { username, password } = req.body;
-  const existing = db.prepare('SELECT * FROM users WHERE username = ?').get(username);
-  if (existing) return res.send('Zaten var');
-
-  const hashed = bcrypt.hashSync(password, 10);
-  db.prepare('INSERT INTO users (username, password) VALUES (?, ?)').run(username, hashed);
-  res.redirect('/admin');
-});
-
-app.post('/admin/delete', requireLogin, requireAdmin, (req, res) => {
-  db.prepare('DELETE FROM users WHERE username = ?').run(req.body.username);
-  res.redirect('/admin');
-});
-
-// GEÇİCİ: Admin kullanıcıyı ekle
-const username = 'CengizzAtay';
-const plainPassword = 'Mceroglu1.';
-const existing = db.prepare('SELECT * FROM users WHERE username = ?').get(username);
-
-if (!existing) {
-  const hashed = bcrypt.hashSync(plainPassword, 10);
-  db.prepare('INSERT INTO users (username, password) VALUES (?, ?)').run(username, hashed);
-  console.log('✅ Admin kullanıcı eklendi!');
-} else {
-  console.log('⚠️ Admin kullanıcı zaten var.');
-}
 
 app.listen(PORT, () => console.log(`http://localhost:${PORT} çalışıyor...`));
