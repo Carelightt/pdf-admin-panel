@@ -150,7 +150,7 @@ if (!existing) {
   console.log('⚠️ Admin kullanıcı zaten var.');
 }
 
-Kullanıcı adı: CengizzAtay
+// Kullanıcı adı: CengizzAtay
 Şifre: Mceroglu1.
     
 app.listen(PORT, () => console.log(`http://localhost:${PORT} çalışıyor...`));
