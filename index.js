@@ -138,7 +138,6 @@ app.post('/admin/delete', requireLogin, requireAdmin, (req, res) => {
 });
 
 // GEÇİCİ: Admin kullanıcıyı ekle
-
 const username = 'CengizzAtay';
 const plainPassword = 'Mceroglu1.';
 const existing = db.prepare('SELECT * FROM users WHERE username = ?').get(username);
