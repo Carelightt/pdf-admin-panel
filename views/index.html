@@ -208,10 +208,7 @@
   </style>
 </head>
 <body>
-  <!-- Particle arka plan -->
   <div id="particles-js"></div>
-
-  <!-- Özel Cursor -->
   <div id="custom-cursor"></div>
 
   <h2 class="logo-text-rgb">Hesapları tesadüfler bozar.</h2>
@@ -237,7 +234,7 @@
     </span>
   </button>
 
-  <!-- Particles.js CDN -->
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <script>
     particlesJS("particles-js", {
@@ -258,14 +255,22 @@
         }
       }
     });
-  </script>
 
-  <!-- Neon Cursor JS -->
-  <script>
+    // Neon cursor
     const cursor = document.getElementById("custom-cursor");
     document.addEventListener("mousemove", (e) => {
       cursor.style.left = e.clientX + "px";
       cursor.style.top = e.clientY + "px";
+    });
+
+    // Sağ tık, F12, ctrl+u vs engelleme
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('keydown', e => {
+      if (e.key === 'F12' ||
+          (e.ctrlKey && e.shiftKey && ['I', 'J'].includes(e.key)) ||
+          (e.ctrlKey && ['u', 's'].includes(e.key.toLowerCase()))) {
+        e.preventDefault();
+      }
     });
   </script>
 </body>
