@@ -9,7 +9,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;600&display=swap" rel="stylesheet">
 
   <style>
-    /* Particles arka plan */
     #particles-js {
       position: fixed;
       width: 100%;
@@ -19,7 +18,22 @@
       left: 0;
     }
 
+    /* Neon cursor */
+    #custom-cursor {
+      position: fixed;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #00ffff;
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: transform 0.05s ease-out;
+      z-index: 9999;
+      box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+    }
+
     body {
+      cursor: none;
       background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/wallpaper.jpg');
       background-size: cover;
       background-position: center;
@@ -197,6 +211,9 @@
   <!-- Particle arka plan -->
   <div id="particles-js"></div>
 
+  <!-- Özel Cursor -->
+  <div id="custom-cursor"></div>
+
   <h2 class="logo-text-rgb">Hesapları tesadüfler bozar.</h2>
   <img src="/logo.png" alt="Logo" class="logo" />
 
@@ -238,44 +255,18 @@
         },
         modes: {
           repulse: { distance: 100 }
-         <!-- Particles.js CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-  <script>
-    particlesJS("particles-js", {
-      particles: {
-        number: { value: 60 },
-        color: { value: "#ffffff" },
-       shape: { type: "circle" },
-        opacity: { value: 0.3 },
-        size: { value: 2 },
-        move: { enable: true, speed: 1 }
-      },
-      interactivity: {
-        events: {
-          onhover: { enable: true, mode: "repulse" }
-        },
-        modes: {
-          repulse: { distance: 100 }
         }
       }
     });
   </script>
 
-  <!-- Kopyalama engelleme kodu -->
+  <!-- Neon Cursor JS -->
   <script>
-    document.addEventListener('contextmenu', function (e) {
-      e.preventDefault();
-    });
-
-    document.addEventListener('keydown', function (e) {
-      if (e.key === "F12" ||
-          (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) ||
-          (e.ctrlKey && (e.key === 'u' || e.key === 's'))) {
-        e.preventDefault();
-      }
+    const cursor = document.getElementById("custom-cursor");
+    document.addEventListener("mousemove", (e) => {
+      cursor.style.left = e.clientX + "px";
+      cursor.style.top = e.clientY + "px";
     });
   </script>
-
 </body>
 </html>
-
