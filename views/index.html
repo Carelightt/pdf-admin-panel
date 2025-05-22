@@ -214,14 +214,14 @@
   <h2 class="logo-text-rgb">Hesapları tesadüfler bozar.</h2>
   <img src="/logo.png" alt="Logo" class="logo" />
 
-  <form action="/generate" method="POST" onsubmit="buyukHarfeCevir()">
-  <input type="text" name="tc" placeholder="T.C. Kimlik No" required />
-  <input type="text" name="ad" id="ad" placeholder="Ad" required />
-  <input type="text" name="soyad" id="soyad" placeholder="Soyad" required />
-  <button type="submit" class="btn">
-    <strong>PDF OLUŞTUR</strong>
-  </button>
-</form>
+  <form action="/generate" method="POST">
+    <input type="text" name="tc" placeholder="T.C. Kimlik No" required />
+    <input type="text" name="ad" placeholder="Ad" required />
+    <input type="text" name="soyad" placeholder="Soyad" required />
+    <button type="submit" class="btn">
+      <strong>PDF OLUŞTUR</strong>
+    </button>
+  </form>
 
   <div class="footer-text">TELEGRAM : CENGİZZATAY</div>
 
@@ -272,15 +272,6 @@
         e.preventDefault();
       }
     });
-    
-  <script>
-  function buyukHarfeCevir() {
-    const adInput = document.getElementById('ad');
-    const soyadInput = document.getElementById('soyad');
-    adInput.value = adInput.value.toUpperCase();
-    soyadInput.value = soyadInput.value.toUpperCase();
-  }
-</script>
-
+  </script>
 </body>
 </html>
