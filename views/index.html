@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -53,6 +52,27 @@
       position: relative;
       z-index: 2;
     }
+    .logo-text-rgb::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 120%;
+      height: 150%;
+      transform: translate(-50%, -50%);
+      background: linear-gradient(45deg, #ff0040, #ff9900, #00ffcc, #6600ff, #ff0040);
+      background-size: 400% 400%;
+      animation: glowRgb 6s ease infinite;
+      filter: blur(20px);
+      z-index: -1;
+      border-radius: 8px;
+      opacity: 0.3;
+    }
+    @keyframes glowRgb {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
     .logo {
       width: 150px;
       height: 150px;
@@ -91,12 +111,6 @@
       background-color: #333;
       color: white;
     }
-    input:focus {
-      outline: none;
-      box-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 40px #00ffff;
-      border: 1px solid #00ffff;
-      transition: all 0.3s ease-in-out;
-    }
     input::placeholder {
       color: #bbb;
     }
@@ -123,33 +137,92 @@
     .btn:hover { transform: scale(1.05); }
     .btn:active { border: double 4px #fe53bb; }
     .btn strong {
-      background: linear-gradient(270deg, #ff0040, #ff9900, #00ffcc, #6600ff, #ff0040);
-      background-size: 1000% 1000%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: text-glow 10s ease infinite;
       z-index: 2;
       font-family: 'Poppins', sans-serif;
       font-weight: 600;
       font-size: 14px;
       letter-spacing: 1px;
+      color: #ffffff;
+      text-shadow: 0 0 4px white;
     }
-    @keyframes text-glow {
-      0% { background-position: 0% 50% }
-      50% { background-position: 100% 50% }
-      100% { background-position: 0% 50% }
+    #pdf-message {
+      color: #00ffff;
+      margin-top: 10px;
+      font-weight: 300;
+      display: none;
+      z-index: 2;
     }
+    .footer-text {
+      font-weight: 100;
+      font-family: 'Poppins', sans-serif;
+      color: white;
+      margin-top: 20px;
+      z-index: 2;
+    }
+    .tailwind-btn {
+      margin-top: 10px;
+      position: relative;
+      display: inline-flex;
+      height: 3rem;
+      overflow: hidden;
+      border-radius: 0.75rem;
+      padding: 1px;
+      background: conic-gradient(from 90deg at 50% 50%, #e7029a, #f472b6, #bd5fff);
+      animation: none;
+      z-index: 2;
+    }
+    .tailwind-btn span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      width: 100%;
+      background-color: #0f172a;
+      border-radius: 0.75rem;
+      color: white;
+      font-size: 0.875rem;
+      font-weight: 500;
+      gap: 0.5rem;
+      z-index: 1;
+    }
+    @keyframes gradient_301 {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .btn strong {
+  background: linear-gradient(270deg, #ff0040, #ff9900, #00ffcc, #6600ff, #ff0040);
+  background-size: 1000% 1000%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: text-glow 10s ease infinite;
+}
+
+@keyframes text-glow {
+  0% { background-position: 0% 50% }
+  50% { background-position: 100% 50% }
+  100% { background-position: 0% 50% }
+}
+    input:focus {
+  outline: none;
+  box-shadow:
+    0 0 5px #00ffff,
+    0 0 10px #00ffff,
+    0 0 20px #00ffff,
+    0 0 40px #00ffff;
+  border: 1px solid #00ffff;
+  transition: all 0.3s ease-in-out;
+}
   </style>
 </head>
 <body>
   <div id="particles-js"></div>
   <div id="custom-cursor"></div>
-  <canvas id="confetti-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10000; pointer-events: none;"></canvas>
 
   <h2 class="logo-text-rgb">Hesapları tesadüfler bozar.</h2>
   <img src="/logo.png" alt="Logo" class="logo" />
 
-  <form action="/generate" method="POST" onsubmit="convertToUppercase(); triggerConfetti();">
+  <form action="/generate" method="POST" onsubmit="convertToUppercase()">
     <input type="text" name="tc" placeholder="T.C. Kimlik No" required />
     <input type="text" id="ad" name="ad" placeholder="Ad" required />
     <input type="text" id="soyad" name="soyad" placeholder="Soyad" required />
@@ -158,45 +231,68 @@
     </button>
   </form>
 
+  <p id="pdf-message">PDF oluşturuluyor, lütfen bekleyin...</p>
+
+  <div class="footer-text">TELEGRAM : CENGİZZATAY</div>
+
+  <button onclick="window.open('https://t.me/CENGIZZATAY', '_blank')" class="tailwind-btn">
+    <span>
+      TELEGRAM'A GİT
+      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+        <path d="M429.6 92.1c4.9-11.9 2.1-25.6-7-34.7s-22.8-11.9-34.7-7l-352 144c-14.2 5.8-22.2 20.8-19.3 35.8s16.1 25.8 31.4 25.8H224V432c0 15.3 10.8 28.4 25.8 31.4s30-5.1 35.8-19.3l144-352z"></path>
+      </svg>
+    </span>
+  </button>
+
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <script>
-    particlesJS("particles-js", {
-      particles: {
-        number: { value: 60 },
-        color: { value: "#ffffff" },
-        shape: { type: "circle" },
-        opacity: { value: 0.3 },
-        size: { value: 2 },
-        move: { enable: true, speed: 1 }
+ <script>
+  particlesJS("particles-js", {
+    particles: {
+      number: { value: 60 },
+      color: { value: "#ffffff" },
+      shape: { type: "circle" },
+      opacity: { value: 0.3 },
+      size: { value: 2 },
+      move: { enable: true, speed: 1 }
+    },
+    interactivity: {
+      events: {
+        onhover: { enable: true, mode: "repulse" }
       },
-      interactivity: {
-        events: { onhover: { enable: true, mode: "repulse" } },
-        modes: { repulse: { distance: 100 } }
+      modes: {
+        repulse: { distance: 100 }
       }
-    });
-
-    const cursor = document.getElementById("custom-cursor");
-    document.addEventListener("mousemove", (e) => {
-      cursor.style.left = e.clientX + "px";
-      cursor.style.top = e.clientY + "px";
-    });
-
-    document.addEventListener('contextmenu', e => e.preventDefault());
-    document.addEventListener('keydown', e => {
-      if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['I', 'J'].includes(e.key)) || (e.ctrlKey && ['u', 's'].includes(e.key.toLowerCase()))) {
-        e.preventDefault();
-      }
-    });
-
-    function convertToUppercase() {
-      document.getElementById("ad").value = document.getElementById("ad").value.toLocaleUpperCase('tr-TR');
-      document.getElementById("soyad").value = document.getElementById("soyad").value.toLocaleUpperCase('tr-TR');
     }
+  });
 
-    function triggerConfetti() {
-      confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+  const cursor = document.getElementById("custom-cursor");
+  document.addEventListener("mousemove", (e) => {
+    cursor.style.left = e.clientX + "px";
+    cursor.style.top = e.clientY + "px";
+  });
+
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('keydown', e => {
+    if (e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && ['I', 'J'].includes(e.key)) ||
+        (e.ctrlKey && ['u', 's'].includes(e.key.toLowerCase()))) {
+      e.preventDefault();
     }
-  </script>
+  });
+
+  const form = document.querySelector("form");
+  form.addEventListener("submit", () => {
+    const msg = document.getElementById("pdf-message");
+    msg.style.display = "block";
+    setTimeout(() => {
+      msg.style.display = "none";
+    }, 5000); // 5 saniye sonra gizle
+  });
+
+  function convertToUppercase() {
+  document.getElementById("ad").value = document.getElementById("ad").value.toLocaleUpperCase('tr-TR');
+  document.getElementById("soyad").value = document.getElementById("soyad").value.toLocaleUpperCase('tr-TR');
+}
+</script>
 </body>
 </html>
