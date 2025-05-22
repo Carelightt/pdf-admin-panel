@@ -203,39 +203,16 @@
   50% { background-position: 100% 50% }
   100% { background-position: 0% 50% }
 }
-    
-    @keyframes glow-border {
-  0% {
-    box-shadow: 0 0 4px #00ffff;
-  }
-  50% {
-    box-shadow: 0 0 12px #00ffff, 0 0 24px #00ffff;
-  }
-  100% {
-    box-shadow: 0 0 4px #00ffff;
-  }
-}
-
-input.glow {
-  animation: none;
-}
-
-@keyframes inputGlow {
-  0% {
-    box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
-  }
-  100% {
-    box-shadow: none;
-  }
-}
-
-input:focus {
+    input:focus {
   outline: none;
-  box-shadow: 0 0 5px #00ffff;
+  box-shadow:
+    0 0 5px #00ffff,
+    0 0 10px #00ffff,
+    0 0 20px #00ffff,
+    0 0 40px #00ffff;
   border: 1px solid #00ffff;
+  transition: all 0.3s ease-in-out;
 }
-  });
-});
   </style>
 </head>
 <body>
@@ -316,23 +293,6 @@ input:focus {
   document.getElementById("ad").value = document.getElementById("ad").value.toLocaleUpperCase('tr-TR');
   document.getElementById("soyad").value = document.getElementById("soyad").value.toLocaleUpperCase('tr-TR');
 }
-   <script>
-  const inputs = document.querySelectorAll("input");
-  inputs.forEach(input => {
-    input.addEventListener("input", () => {
-      input.classList.remove("glow");
-      void input.offsetWidth; // class'ı sıfırlamak için hack
-      input.classList.add("glow");
-    });
-  });
-
-  const style = document.createElement("style");
-  style.textContent = `
-    input.glow {
-      animation: inputGlow 0.3s ease;
-    }
-  `;
-  document.head.appendChild(style);
 </script>
 </body>
 </html>
