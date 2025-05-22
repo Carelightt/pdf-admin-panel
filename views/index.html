@@ -213,6 +213,28 @@
   border: 1px solid #00ffff;
   transition: all 0.3s ease-in-out;
 }
+    @keyframes glow-border {
+  0% {
+    box-shadow: 0 0 4px #00ffff;
+  }
+  50% {
+    box-shadow: 0 0 12px #00ffff, 0 0 24px #00ffff;
+  }
+  100% {
+    box-shadow: 0 0 4px #00ffff;
+  }
+}
+
+input.glow {
+  animation: glow-border 0.5s ease-out;
+}
+    document.querySelectorAll("input").forEach((input) => {
+  input.addEventListener("input", () => {
+    input.classList.remove("glow");
+    void input.offsetWidth; // trigger reflow
+    input.classList.add("glow");
+  });
+});
   </style>
 </head>
 <body>
