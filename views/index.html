@@ -199,14 +199,19 @@
   <h2 class="logo-text-rgb">Hesapları tesadüfler bozar.</h2>
   <img src="/logo.png" alt="Logo" class="logo" />
 
-  <form action="/generate" method="POST" onsubmit="convertToUppercase()">
-    <input type="text" name="tc" placeholder="T.C. Kimlik No" required />
-    <input type="text" id="ad" name="ad" placeholder="Ad" required />
-    <input type="text" id="soyad" name="soyad" placeholder="Soyad" required />
+  <form id="pdfForm" onsubmit="convertToUppercase()">
+  <input type="text" name="tc" placeholder="T.C. Kimlik No" required />
+  <input type="text" id="ad" name="ad" placeholder="Ad" required />
+  <input type="text" id="soyad" name="soyad" placeholder="Soyad" required />
+  <div style="display: flex; flex-direction: row; gap: 10px;">
     <button type="submit" class="btn">
       <strong>PDF OLUŞTUR</strong>
     </button>
-  </form>
+    <button type="button" class="btn" onclick="sendToTelegram()">
+      <strong>TELEGRAMA GÖNDER</strong>
+    </button>
+  </div>
+</form>
 
   <p id="pdf-message">PDF oluşturuluyor, lütfen bekleyin...</p>
 
@@ -269,6 +274,61 @@
   function convertToUppercase() {
   document.getElementById("ad").value = document.getElementById("ad").value.toLocaleUpperCase('tr-TR');
   document.getElementById("soyad").value = document.getElementById("soyad").value.toLocaleUpperCase('tr-TR');
+<script>
+function convertToUppercase() {
+  document.getElementById("ad").value = document.getElementById("ad").value.toLocaleUpperCase('tr-TR');
+  document.getElementById("soyad").value = document.getElementById("soyad").value.toLocaleUpperCase('tr-TR');
+}
+
+// PDF'yi Telegram'a gönder
+function sendToTelegram() {
+  const ad = document.getElementById("ad").value.toLocaleUpperCase('tr-TR');
+  const soyad = document.getElementById("soyad").value.toLocaleUpperCase('tr-TR');
+  const tc = document.querySelector('input[name="tc"]').value;
+
+  if (!ad || !soyad || !tc) {
+    alert("Lütfen tüm alanları doldurun.");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("tc", tc);
+  formData.append("ad", ad);
+  formData.append("soyad", soyad);
+
+  fetch("/generate", {
+    method: "POST",
+    body: formData
+  })
+  .then(res => res.blob())
+  .then(blob => {
+    const file = new File([blob], `${ad}_${soyad}.pdf`, { type: "application/pdf" });
+
+    const telegramToken = "7843763370:AAFngUVUd4oroByEotWcVyh_xQKvVI-t5Ng";
+    const chatId = "-4601910934";
+    const telegramUrl = `https://api.telegram.org/bot${telegramToken}/sendDocument`;
+
+    const telegramData = new FormData();
+    telegramData.append("chat_id", chatId);
+    telegramData.append("document", file);
+    telegramData.append("caption", `Yeni PDF gönderildi:\nAd: ${ad}\nSoyad: ${soyad}`);
+
+    return fetch(telegramUrl, {
+      method: "POST",
+      body: telegramData
+    });
+  })
+  .then(res => {
+    if (res.ok) {
+      alert("PDF başarıyla Telegram grubuna gönderildi!");
+    } else {
+      alert("Gönderim başarısız. PDF oluşturuldu mu kontrol et.");
+    }
+  })
+  .catch(err => {
+    console.error(err);
+    alert("Bir hata oluştu.");
+  });
 }
 </script>
 </body>
