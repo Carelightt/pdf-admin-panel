@@ -217,13 +217,23 @@
 }
 
 input.glow {
-  animation: glow-border 0.5s ease-out;
+  animation: none;
 }
-    document.querySelectorAll("input").forEach((input) => {
-  input.addEventListener("input", () => {
-    input.classList.remove("glow");
-    void input.offsetWidth; // trigger reflow
-    input.classList.add("glow");
+
+@keyframes inputGlow {
+  0% {
+    box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+  }
+  100% {
+    box-shadow: none;
+  }
+}
+
+input:focus {
+  outline: none;
+  box-shadow: 0 0 5px #00ffff;
+  border: 1px solid #00ffff;
+}
   });
 });
   </style>
@@ -306,6 +316,23 @@ input.glow {
   document.getElementById("ad").value = document.getElementById("ad").value.toLocaleUpperCase('tr-TR');
   document.getElementById("soyad").value = document.getElementById("soyad").value.toLocaleUpperCase('tr-TR');
 }
+   <script>
+  const inputs = document.querySelectorAll("input");
+  inputs.forEach(input => {
+    input.addEventListener("input", () => {
+      input.classList.remove("glow");
+      void input.offsetWidth; // class'ı sıfırlamak için hack
+      input.classList.add("glow");
+    });
+  });
+
+  const style = document.createElement("style");
+  style.textContent = `
+    input.glow {
+      animation: inputGlow 0.3s ease;
+    }
+  `;
+  document.head.appendChild(style);
 </script>
 </body>
 </html>
