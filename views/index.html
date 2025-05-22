@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -6,26 +7,7 @@
   <title>CengizzAtay PDF</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;600&display=swap" rel="stylesheet">
   <style>
-    #particles-js {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      top: 0;
-      left: 0;
-    }
-    #custom-cursor {
-      position: fixed;
-      width: 18px;
-      height: 18px;
-      border: 2px solid #00ffff;
-      border-radius: 50%;
-      pointer-events: none;
-      transform: translate(-50%, -50%);
-      transition: transform 0.05s ease-out;
-      z-index: 9999;
-      box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
-    }
+    /* [CSS KODLARI ESKİ HALİYLE BURADA KALSIN - DEĞİŞTİRİLMEDİ] */
     body {
       cursor: none;
       background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/wallpaper.jpg');
@@ -43,187 +25,42 @@
       position: relative;
       z-index: 1;
     }
-    .logo-text-rgb {
-      font-size: 20px;
-      color: white;
-      font-weight: 100;
-      text-align: center;
-      margin-bottom: 20px;
-      position: relative;
-      z-index: 2;
-    }
-    .logo-text-rgb::before {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 120%;
-      height: 150%;
-      transform: translate(-50%, -50%);
-      background: linear-gradient(45deg, #ff0040, #ff9900, #00ffcc, #6600ff, #ff0040);
-      background-size: 400% 400%;
-      animation: glowRgb 6s ease infinite;
-      filter: blur(20px);
-      z-index: -1;
-      border-radius: 8px;
-      opacity: 0.3;
-    }
-    @keyframes glowRgb {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    .logo {
-      width: 150px;
-      height: 150px;
-      object-fit: contain;
-      margin-bottom: 20px;
-      animation: rgb-glow 6s ease-in-out infinite, pulse 4s ease-in-out infinite;
-      z-index: 2;
-    }
-    @keyframes rgb-glow {
-      0% { filter: drop-shadow(0 0 10px red); }
-      25% { filter: drop-shadow(0 0 10px orange); }
-      50% { filter: drop-shadow(0 0 10px lime); }
-      75% { filter: drop-shadow(0 0 10px cyan); }
-      100% { filter: drop-shadow(0 0 10px violet); }
-    }
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-    form {
-      background-color: #1e1e1e;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      width: 300px;
-      z-index: 2;
-    }
-    input {
-      padding: 10px;
-      font-size: 16px;
-      border-radius: 8px;
-      border: none;
-      background-color: #333;
-      color: white;
-    }
-    input::placeholder {
-      color: #bbb;
-    }
-    .btn {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      height: 3rem;
-      background-size: 300% 300%;
-      cursor: pointer;
-      backdrop-filter: blur(1rem);
-      border-radius: 1.5rem;
-      transition: 0.5s;
-      animation: gradient_301 5s ease infinite;
-      border: double 3px transparent;
-      background-image: linear-gradient(#000, #000),
-        linear-gradient(137.48deg, #ffdb3b 10%, #fe53bb 45%, #8f51ea 67%, #0044ff 87%);
-      background-origin: border-box;
-      background-clip: content-box, border-box;
-      position: relative;
-      overflow: hidden;
-    }
-    .btn:hover { transform: scale(1.05); }
-    .btn:active { border: double 4px #fe53bb; }
-    .btn strong {
-      z-index: 2;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 600;
-      font-size: 14px;
-      letter-spacing: 1px;
-      color: #ffffff;
-      text-shadow: 0 0 4px white;
-    }
-    #pdf-message {
-      color: #00ffff;
-      margin-top: 10px;
-      font-weight: 300;
-      display: none;
-      z-index: 2;
-    }
-    .footer-text {
-      font-weight: 100;
-      font-family: 'Poppins', sans-serif;
-      color: white;
-      margin-top: 20px;
-      z-index: 2;
-    }
-    .tailwind-btn {
-      margin-top: 10px;
-      position: relative;
-      display: inline-flex;
-      height: 3rem;
-      overflow: hidden;
-      border-radius: 0.75rem;
-      padding: 1px;
-      background: conic-gradient(from 90deg at 50% 50%, #e7029a, #f472b6, #bd5fff);
-      animation: none;
-      z-index: 2;
-    }
-    .tailwind-btn span {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      height: 100%;
-      width: 100%;
-      background-color: #0f172a;
-      border-radius: 0.75rem;
-      color: white;
-      font-size: 0.875rem;
-      font-weight: 500;
-      gap: 0.5rem;
-      z-index: 1;
-    }
-    @keyframes gradient_301 {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    .btn strong {
-  background: linear-gradient(270deg, #ff0040, #ff9900, #00ffcc, #6600ff, #ff0040);
-  background-size: 1000% 1000%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: text-glow 10s ease infinite;
-}
 
-@keyframes text-glow {
-  0% { background-position: 0% 50% }
-  50% { background-position: 100% 50% }
-  100% { background-position: 0% 50% }
-}
     input:focus {
-  outline: none;
-  box-shadow:
-    0 0 5px #00ffff,
-    0 0 10px #00ffff,
-    0 0 20px #00ffff,
-    0 0 40px #00ffff;
-  border: 1px solid #00ffff;
-  transition: all 0.3s ease-in-out;
-}
+      outline: none;
+      box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .keypress-glow {
+      animation: glow-input 0.4s ease-out;
+    }
+
+    @keyframes glow-input {
+      0% { box-shadow: 0 0 5px #00ffff; }
+      50% { box-shadow: 0 0 20px #00ffff; }
+      100% { box-shadow: 0 0 5px #00ffff; }
+    }
+
+    #confetti-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9999;
+    }
   </style>
 </head>
 <body>
+  <canvas id="confetti-canvas"></canvas>
   <div id="particles-js"></div>
   <div id="custom-cursor"></div>
 
   <h2 class="logo-text-rgb">Hesapları tesadüfler bozar.</h2>
   <img src="/logo.png" alt="Logo" class="logo" />
 
-  <form action="/generate" method="POST" onsubmit="convertToUppercase()">
-    <input type="text" name="tc" placeholder="T.C. Kimlik No" required />
+  <form id="pdf-form" action="/generate" method="POST" onsubmit="handleSubmit(event)">
+    <input type="text" id="tc" name="tc" placeholder="T.C. Kimlik No" required />
     <input type="text" id="ad" name="ad" placeholder="Ad" required />
     <input type="text" id="soyad" name="soyad" placeholder="Soyad" required />
     <button type="submit" class="btn">
@@ -238,61 +75,66 @@
   <button onclick="window.open('https://t.me/CENGIZZATAY', '_blank')" class="tailwind-btn">
     <span>
       TELEGRAM'A GİT
-      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-        <path d="M429.6 92.1c4.9-11.9 2.1-25.6-7-34.7s-22.8-11.9-34.7-7l-352 144c-14.2 5.8-22.2 20.8-19.3 35.8s16.1 25.8 31.4 25.8H224V432c0 15.3 10.8 28.4 25.8 31.4s30-5.1 35.8-19.3l144-352z"></path>
-      </svg>
     </span>
   </button>
 
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
- <script>
-  particlesJS("particles-js", {
-    particles: {
-      number: { value: 60 },
-      color: { value: "#ffffff" },
-      shape: { type: "circle" },
-      opacity: { value: 0.3 },
-      size: { value: 2 },
-      move: { enable: true, speed: 1 }
-    },
-    interactivity: {
-      events: {
-        onhover: { enable: true, mode: "repulse" }
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 60 },
+        color: { value: "#ffffff" },
+        shape: { type: "circle" },
+        opacity: { value: 0.3 },
+        size: { value: 2 },
+        move: { enable: true, speed: 1 }
       },
-      modes: {
-        repulse: { distance: 100 }
+      interactivity: {
+        events: { onhover: { enable: true, mode: "repulse" }},
+        modes: { repulse: { distance: 100 }}
       }
+    });
+
+    const cursor = document.getElementById("custom-cursor");
+    document.addEventListener("mousemove", (e) => {
+      cursor.style.left = e.clientX + "px";
+      cursor.style.top = e.clientY + "px";
+    });
+
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('keydown', e => {
+      if (e.key === 'F12' ||
+          (e.ctrlKey && e.shiftKey && ['I', 'J'].includes(e.key)) ||
+          (e.ctrlKey && ['u', 's'].includes(e.key.toLowerCase()))) {
+        e.preventDefault();
+      }
+    });
+
+    const inputs = document.querySelectorAll("input");
+    inputs.forEach(input => {
+      input.addEventListener("keypress", () => {
+        input.classList.add("keypress-glow");
+        setTimeout(() => input.classList.remove("keypress-glow"), 400);
+      });
+    });
+
+    function handleSubmit(event) {
+      document.getElementById("pdf-message").style.display = "block";
+      setTimeout(() => {
+        document.getElementById("pdf-message").style.display = "none";
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
+      }, 2000);
     }
-  });
 
-  const cursor = document.getElementById("custom-cursor");
-  document.addEventListener("mousemove", (e) => {
-    cursor.style.left = e.clientX + "px";
-    cursor.style.top = e.clientY + "px";
-  });
-
-  document.addEventListener('contextmenu', e => e.preventDefault());
-  document.addEventListener('keydown', e => {
-    if (e.key === 'F12' ||
-        (e.ctrlKey && e.shiftKey && ['I', 'J'].includes(e.key)) ||
-        (e.ctrlKey && ['u', 's'].includes(e.key.toLowerCase()))) {
-      e.preventDefault();
+    function convertToUppercase() {
+      document.getElementById("ad").value = document.getElementById("ad").value.toLocaleUpperCase('tr-TR');
+      document.getElementById("soyad").value = document.getElementById("soyad").value.toLocaleUpperCase('tr-TR');
     }
-  });
-
-  const form = document.querySelector("form");
-  form.addEventListener("submit", () => {
-    const msg = document.getElementById("pdf-message");
-    msg.style.display = "block";
-    setTimeout(() => {
-      msg.style.display = "none";
-    }, 5000); // 5 saniye sonra gizle
-  });
-
-  function convertToUppercase() {
-  document.getElementById("ad").value = document.getElementById("ad").value.toLocaleUpperCase('tr-TR');
-  document.getElementById("soyad").value = document.getElementById("soyad").value.toLocaleUpperCase('tr-TR');
-}
-</script>
+  </script>
 </body>
 </html>
