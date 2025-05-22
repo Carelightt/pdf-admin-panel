@@ -207,6 +207,11 @@
       <strong>PDF OLUŞTUR</strong>
     </button>
   </form>
+    <div style="margin-top: 15px; display: flex; gap: 10px; justify-content: center;">
+        <a href="/output.pdf" download class="btn" style="width: 48%;"><strong>PDF İNDİR</strong></a>
+        <button onclick="copyToClipboard('/output.pdf')" class="btn" style="width: 48%;"><strong>KOPYALA</strong></button>
+    </div>
+    
 
   <p id="pdf-message">PDF oluşturuluyor, lütfen bekleyin...</p>
 
@@ -272,15 +277,15 @@
 }
 </script>
 
-<script>
-function copyToClipboard(text) {
-  navigator.clipboard.writeText(text).then(function() {
-    alert("Link kopyalandı: " + text);
-  }, function(err) {
-    alert("Kopyalama hatası: ", err);
-  });
-}
-</script>
-
-</body>
+    <script>
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Link panoya kopyalandı: " + text);
+      }).catch(err => {
+        alert("Kopyalanamadı: " + err);
+      });
+    }
+    </script>
+    </body>
+    
 </html>
