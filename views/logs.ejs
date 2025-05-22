@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>PDF Geçmişi</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      padding: 40px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #1e1e1e;
+    }
+    th, td {
+      padding: 10px;
+      text-align: center;
+      border-bottom: 1px solid #444;
+    }
+    th {
+      background-color: #222;
+    }
+    tr:hover {
+      background-color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>PDF Geçmişi</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Tarih</th>
+        <th>Üreten Kullanıcı</th>
+        <th>Oluşturulan Ad</th>
+        <th>TC</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% logs.forEach(log => { %>
+        <tr>
+          <td><%= log.date %></td>
+          <td><%= log.createdBy %></td>
+          <td><%= log.for %></td>
+          <td><%= log.tc %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</body>
+</html>
