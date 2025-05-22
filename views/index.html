@@ -222,50 +222,54 @@
   </button>
 
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-  <script>
-    particlesJS("particles-js", {
-      particles: {
-        number: { value: 60 },
-        color: { value: "#ffffff" },
-        shape: { type: "circle" },
-        opacity: { value: 0.3 },
-        size: { value: 2 },
-        move: { enable: true, speed: 1 }
+ <script>
+  particlesJS("particles-js", {
+    particles: {
+      number: { value: 60 },
+      color: { value: "#ffffff" },
+      shape: { type: "circle" },
+      opacity: { value: 0.3 },
+      size: { value: 2 },
+      move: { enable: true, speed: 1 }
+    },
+    interactivity: {
+      events: {
+        onhover: { enable: true, mode: "repulse" }
       },
-      interactivity: {
-        events: {
-          onhover: { enable: true, mode: "repulse" }
-        },
-        modes: {
-          repulse: { distance: 100 }
-        }
+      modes: {
+        repulse: { distance: 100 }
       }
-    });
-
-    const cursor = document.getElementById("custom-cursor");
-    document.addEventListener("mousemove", (e) => {
-      cursor.style.left = e.clientX + "px";
-      cursor.style.top = e.clientY + "px";
-    });
-
-    document.addEventListener('contextmenu', e => e.preventDefault());
-    document.addEventListener('keydown', e => {
-      if (e.key === 'F12' ||
-          (e.ctrlKey && e.shiftKey && ['I', 'J'].includes(e.key)) ||
-          (e.ctrlKey && ['u', 's'].includes(e.key.toLowerCase()))) {
-        e.preventDefault();
-      }
-    });
-
-    const form = document.querySelector("form");
-    form.addEventListener("submit", () => {
-      document.getElementById("pdf-message").style.display = "block";
-    });
-
-    function convertToUppercase() {
-      document.getElementById("ad").value = document.getElementById("ad").value.toUpperCase();
-      document.getElementById("soyad").value = document.getElementById("soyad").value.toUpperCase();
     }
-  </script>
+  });
+
+  const cursor = document.getElementById("custom-cursor");
+  document.addEventListener("mousemove", (e) => {
+    cursor.style.left = e.clientX + "px";
+    cursor.style.top = e.clientY + "px";
+  });
+
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('keydown', e => {
+    if (e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && ['I', 'J'].includes(e.key)) ||
+        (e.ctrlKey && ['u', 's'].includes(e.key.toLowerCase()))) {
+      e.preventDefault();
+    }
+  });
+
+  const form = document.querySelector("form");
+  form.addEventListener("submit", () => {
+    const msg = document.getElementById("pdf-message");
+    msg.style.display = "block";
+    setTimeout(() => {
+      msg.style.display = "none";
+    }, 5000); // 5 saniye sonra gizle
+  });
+
+  function convertToUppercase() {
+    document.getElementById("ad").value = document.getElementById("ad").value.toUpperCase();
+    document.getElementById("soyad").value = document.getElementById("soyad").value.toUpperCase();
+  }
+</script>
 </body>
 </html>
