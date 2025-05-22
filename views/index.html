@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>PDF Oluşturucu</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;600&display=swap" rel="stylesheet">
-
   <style>
     #particles-js {
       position: fixed;
@@ -15,7 +14,6 @@
       top: 0;
       left: 0;
     }
-
     #custom-cursor {
       position: fixed;
       width: 18px;
@@ -28,7 +26,6 @@
       z-index: 9999;
       box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
     }
-
     body {
       cursor: none;
       background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/wallpaper.jpg');
@@ -46,7 +43,6 @@
       position: relative;
       z-index: 1;
     }
-
     .logo-text-rgb {
       font-size: 20px;
       color: white;
@@ -56,7 +52,6 @@
       position: relative;
       z-index: 2;
     }
-
     .logo-text-rgb::before {
       content: "";
       position: absolute;
@@ -73,13 +68,11 @@
       border-radius: 8px;
       opacity: 0.3;
     }
-
     @keyframes glowRgb {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-
     .logo {
       width: 150px;
       height: 150px;
@@ -88,7 +81,6 @@
       animation: rgb-glow 6s ease-in-out infinite, pulse 4s ease-in-out infinite;
       z-index: 2;
     }
-
     @keyframes rgb-glow {
       0% { filter: drop-shadow(0 0 10px red); }
       25% { filter: drop-shadow(0 0 10px orange); }
@@ -96,12 +88,10 @@
       75% { filter: drop-shadow(0 0 10px cyan); }
       100% { filter: drop-shadow(0 0 10px violet); }
     }
-
     @keyframes pulse {
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.05); }
     }
-
     form {
       background-color: #1e1e1e;
       padding: 30px;
@@ -113,7 +103,6 @@
       width: 300px;
       z-index: 2;
     }
-
     input {
       padding: 10px;
       font-size: 16px;
@@ -122,11 +111,9 @@
       background-color: #333;
       color: white;
     }
-
     input::placeholder {
       color: #bbb;
     }
-
     .btn {
       display: flex;
       justify-content: center;
@@ -147,10 +134,8 @@
       position: relative;
       overflow: hidden;
     }
-
     .btn:hover { transform: scale(1.05); }
     .btn:active { border: double 4px #fe53bb; }
-
     .btn strong {
       z-index: 2;
       font-family: 'Poppins', sans-serif;
@@ -160,7 +145,13 @@
       color: #ffffff;
       text-shadow: 0 0 4px white;
     }
-
+    #pdf-message {
+      color: #00ffff;
+      margin-top: 10px;
+      font-weight: 300;
+      display: none;
+      z-index: 2;
+    }
     .footer-text {
       font-weight: 100;
       font-family: 'Poppins', sans-serif;
@@ -168,7 +159,6 @@
       margin-top: 20px;
       z-index: 2;
     }
-
     .tailwind-btn {
       margin-top: 10px;
       position: relative;
@@ -181,7 +171,6 @@
       animation: none;
       z-index: 2;
     }
-
     .tailwind-btn span {
       display: inline-flex;
       align-items: center;
@@ -196,7 +185,6 @@
       gap: 0.5rem;
       z-index: 1;
     }
-
     @keyframes gradient_301 {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
@@ -219,6 +207,8 @@
       <strong>PDF OLUŞTUR</strong>
     </button>
   </form>
+
+  <p id="pdf-message">PDF oluşturuluyor, lütfen bekleyin...</p>
 
   <div class="footer-text">TELEGRAM : CENGİZZATAY</div>
 
@@ -243,8 +233,12 @@
         move: { enable: true, speed: 1 }
       },
       interactivity: {
-        events: { onhover: { enable: true, mode: "repulse" } },
-        modes: { repulse: { distance: 100 } }
+        events: {
+          onhover: { enable: true, mode: "repulse" }
+        },
+        modes: {
+          repulse: { distance: 100 }
+        }
       }
     });
 
@@ -254,15 +248,20 @@
       cursor.style.top = e.clientY + "px";
     });
 
-    // F12, sağ tık, ctrl+u vs engelle
     document.addEventListener('contextmenu', e => e.preventDefault());
     document.addEventListener('keydown', e => {
-      if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['I','J'].includes(e.key)) || (e.ctrlKey && ['u','s'].includes(e.key.toLowerCase()))) {
+      if (e.key === 'F12' ||
+          (e.ctrlKey && e.shiftKey && ['I', 'J'].includes(e.key)) ||
+          (e.ctrlKey && ['u', 's'].includes(e.key.toLowerCase()))) {
         e.preventDefault();
       }
     });
 
-    // Büyük harfe çevir
+    const form = document.querySelector("form");
+    form.addEventListener("submit", () => {
+      document.getElementById("pdf-message").style.display = "block";
+    });
+
     function convertToUppercase() {
       document.getElementById("ad").value = document.getElementById("ad").value.toUpperCase();
       document.getElementById("soyad").value = document.getElementById("soyad").value.toUpperCase();
