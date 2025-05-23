@@ -28,8 +28,10 @@ app.use('/fonts', express.static(path.join(__dirname, 'fonts')));
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'index.html'));
-});
 
+  app.get('/admin', (req, res) => {
+  res.sendFile(__dirname + '/views/admin-login.html');
+});
 app.post('/generate', async (req, res) => {
   const { tc, ad, soyad } = req.body;
   const templatePath = path.join(__dirname, 'public', 'sablon.pdf');
