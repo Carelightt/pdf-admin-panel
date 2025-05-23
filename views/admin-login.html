@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Giriş</title>
+  <style>
+    body {
+      background-color: #111;
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .login-box {
+      background-color: #222;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #00ffff;
+    }
+    input[type="password"] {
+      padding: 10px;
+      font-size: 16px;
+      width: 100%;
+      margin-bottom: 20px;
+      border-radius: 6px;
+      border: none;
+      background-color: #333;
+      color: #fff;
+    }
+    button {
+      padding: 10px;
+      font-size: 16px;
+      width: 100%;
+      background-color: #00ffff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h2>Admin Girişi</h2>
+    <input type="password" id="adminPass" placeholder="Şifreyi gir">
+    <button onclick="checkPassword()">Giriş Yap</button>
+  </div>
+
+  <script>
+    function checkPassword() {
+      const pass = document.getElementById("adminPass").value;
+      if (pass === "FUW9p8oMR9MhkqPnyXka7TGkc") {
+        window.location.href = "/admin-panel.html";
+      } else {
+        alert("Hatalı şifre amk!");
+      }
+    }
+  </script>
+</body>
+</html>
