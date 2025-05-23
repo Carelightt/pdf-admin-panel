@@ -38,15 +38,9 @@ app.get('/admin', (req, res) => {
 app.post('/admin-login', (req, res) => {
   const password = req.body.password;
   if (password === 'FUW9p8oMR9MhkqPnyXka7TGkc') {
-    const logs = db.prepare('SELECT * FROM logs ORDER BY date DESC').all();
-    let html = '<h2>PDF Logları</h2><ul>';
-    for (let log of logs) {
-      html += `<li>${log.date} - ${log.user} → ${log.ad} ${log.soyad} (TC: ${log.tc})</li>`;
-    }
-    html += '</ul>';
-    res.send(html);
+    res.redirect('/admin-panel.html');
   } else {
-    res.send('<h3>Hatalı şifre dayı!</h3>');
+    res.send('<h2>Hatalı şifre dayı!</h2>');
   }
 });
 
