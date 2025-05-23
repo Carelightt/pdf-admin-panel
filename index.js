@@ -26,6 +26,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use('/fonts', express.static(path.join(__dirname, 'fonts')));
 
+// BURAYA YAPIŞTIR:
+app.use(express.static(path.join(__dirname, 'views')));
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'index.html'));
 });
