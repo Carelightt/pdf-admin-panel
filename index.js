@@ -1,3 +1,4 @@
+
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
@@ -11,7 +12,7 @@ const PORT = process.env.PORT || 3000;
 
 const db = new Database(path.join(__dirname, 'data', 'users.db'));
 
-db.prepare(`
+db.prepare(\`
   CREATE TABLE IF NOT EXISTS logs (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   ip TEXT,
@@ -21,7 +22,7 @@ db.prepare(`
   soyad TEXT,
   date TEXT
 )
-`).run();
+\`).run();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
@@ -73,7 +74,7 @@ app.post('/generate', async (req, res) => {
   page.drawText(ad, { x: adPos.x, y: adPos.y, size: fontSize, font, color: rgb(0, 0, 0) });
   page.drawText(soyad, { x: soyadPos.x, y: soyadPos.y, size: fontSize, font, color: rgb(0, 0, 0) });
 
-  const filename = `${ad}_${soyad}.pdf`;
+  const filename = \`\${ad}_\${soyad}.pdf\`;
   const pdfBytes = await pdfDoc.save();
 
   db.prepare('INSERT INTO logs (ip, user, tc, ad, soyad, date) VALUES (?, ?, ?, ?, ?, ?)').run(
@@ -81,8 +82,8 @@ app.post('/generate', async (req, res) => {
 );
 
   res.setHeader('Content-Type', 'application/pdf');
-  res.setHeader('Content-Disposition', `attachment; filename="${encodeURIComponent(filename)}"`);
+  res.setHeader('Content-Disposition', \`attachment; filename="\${encodeURIComponent(filename)}"\`);
   res.send(Buffer.from(pdfBytes));
 });
 
-app.listen(PORT, () => console.log(`http://localhost:${PORT} çalışıyor...`));
+app.listen(PORT, () => console.log(\`http://localhost:\${PORT} çalışıyor...\`));
