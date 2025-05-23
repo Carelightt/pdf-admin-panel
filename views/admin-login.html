@@ -1,25 +1,49 @@
-app.post('/admin-login', (req, res) => {
-  const password = req.body.password;
-  if (password === 'FUW9p8oMR9MhkqPnyXka7TGkc') {
-    const logs = db.prepare('SELECT * FROM logs ORDER BY date DESC').all();
-
-    let html = `
-      <html>
-      <head><meta charset="UTF-8"><title>Loglar</title></head>
-      <body style="font-family:sans-serif;background:#111;color:#fff;padding:20px;">
-        <h2>PDF Logları</h2>
-        <ul style="list-style:none;padding:0;">`;
-
-    for (let log of logs) {
-      html += `<li style="margin:10px 0;border-bottom:1px solid #444;padding-bottom:10px;">
-        <strong>${log.date}</strong> — ${log.user} → ${log.ad} ${log.soyad} (TC: ${log.tc})
-      </li>`;
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Girişi</title>
+  <style>
+    body {
+      background-color: #111;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
     }
-
-    html += `</ul></body></html>`;
-    res.send(html);
-
-  } else {
-    res.send('<h3 style="color:red;">Hatalı şifre dayı!</h3>');
-  }
-});
+    form {
+      background-color: #222;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #00ffff;
+    }
+    input {
+      padding: 10px;
+      margin-bottom: 10px;
+      width: 100%;
+      border: none;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px;
+      width: 100%;
+      background: #00ffff;
+      color: #111;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <form method="POST" action="/admin-login">
+    <h2>Şifre Gir Dayım</h2>
+    <input type="password" name="password" placeholder="Şifreyi yaz dayım" required />
+    <button type="submit">GİRİŞ</button>
+  </form>
+</body>
+</html>
