@@ -62,6 +62,7 @@ app.post('/generate', async (req, res) => {
   const tcPos = { x: 180, y: 588 };
   const adPos = { x: 180, y: 571 };
   const soyadPos = { x: 180, y: 554 };
+  const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
   page.drawRectangle({ x: 180, y: tcPos.y - 2, width: 180, height: 14, color: rgb(1, 1, 1) });
   page.drawRectangle({ x: 180, y: adPos.y - 2, width: 180, height: 14, color: rgb(1, 1, 1) });
