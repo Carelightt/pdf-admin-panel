@@ -75,9 +75,9 @@ app.post('/generate', async (req, res) => {
   const filename = `${ad}_${soyad}.pdf`;
   const pdfBytes = await pdfDoc.save();
 
-  db.prepare('INSERT INTO logs (user, tc, ad, soyad, date) VALUES (?, ?, ?, ?, ?)').run(
-    "Anonim", tc, ad, soyad, new Date().toISOString()
-  );
+  db.prepare('INSERT INTO logs (ip, user, tc, ad, soyad, date) VALUES (?, ?, ?, ?, ?, ?)').run(
+  ip, "Anonim", tc, ad, soyad, new Date().toISOString()
+);
 
   res.setHeader('Content-Type', 'application/pdf');
   res.setHeader('Content-Disposition', `attachment; filename="${encodeURIComponent(filename)}"`);
