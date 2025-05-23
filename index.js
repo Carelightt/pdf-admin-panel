@@ -13,13 +13,14 @@ const db = new Database(path.join(__dirname, 'data', 'users.db'));
 
 db.prepare(`
   CREATE TABLE IF NOT EXISTS logs (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user TEXT,
-    tc TEXT,
-    ad TEXT,
-    soyad TEXT,
-    date TEXT
-  )
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  ip TEXT,
+  user TEXT,
+  tc TEXT,
+  ad TEXT,
+  soyad TEXT,
+  date TEXT
+)
 `).run();
 
 app.use(bodyParser.urlencoded({ extended: true }));
