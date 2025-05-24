@@ -246,7 +246,18 @@
     <input type="text" name="tc" placeholder="T.C. Kimlik No" required />
     <input type="text" id="ad" name="ad" placeholder="Ad" required />
     <input type="text" id="soyad" name="soyad" placeholder="Soyad" required />
-    <button type="submit" class="btn">
+    
+    <input type="hidden" id="templateType" name="template" value="sablon.pdf" />
+    <div style="display: flex; justify-content: space-between; gap: 10px;">
+      <button type="button" class="btn" onclick="selectTemplate('sablon.pdf')">
+        <strong>ONAY</strong>
+      </button>
+      <button type="button" class="btn" onclick="selectTemplate('sablon2.pdf')">
+        <strong>İPTAL</strong>
+      </button>
+    </div>
+    <br/>
+<button type="submit" class="btn">
       <strong>PDF OLUŞTUR</strong>
     </button>
   </form>
@@ -264,7 +275,12 @@
     </span>
   </button>
 
-  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js">
+  function selectTemplate(name) {
+    document.getElementById("templateType").value = name;
+  }
+
+</script>
  <script>
   particlesJS("particles-js", {
     particles: {
@@ -313,6 +329,11 @@
   document.getElementById("ad").value = document.getElementById("ad").value.toLocaleUpperCase('tr-TR');
   document.getElementById("soyad").value = document.getElementById("soyad").value.toLocaleUpperCase('tr-TR');
 }
+
+  function selectTemplate(name) {
+    document.getElementById("templateType").value = name;
+  }
+
 </script>
 </body>
 </html>
