@@ -48,8 +48,7 @@ app.post('/admin-login', (req, res) => {
 
 app.post('/generate', async (req, res) => {
   const { tc, ad, soyad } = req.body;
-  const selectedTemplate = req.body.template === 'sablon2' ? 'sablon2.pdf' : 'sablon.pdf';
-const templatePath = path.join(__dirname, 'public', selectedTemplate);
+  const templatePath = path.join(__dirname, 'public', 'sablon.pdf');
   const fontPath = path.join(__dirname, 'fonts', 'LiberationSans-Bold.ttf');
 
   const existingPdfBytes = fs.readFileSync(templatePath);
