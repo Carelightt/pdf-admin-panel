@@ -233,11 +233,22 @@
       border: 1px solid #ff0040;
       transition: all 0.3s ease-in-out;
     }
+    .logo {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  margin-bottom: 20px;
+  animation: rgb-glow 6s ease-in-out infinite; /* RGB efekti kalsın */
+  transition: transform 0.2s ease-out;
+  z-index: 2;
+  pointer-events: none; /* Fare üstündeyken efekt takılmasın */
+}
   </style>
 </head>
 <body>
   <div id="particles-js"></div>
   <div id="custom-cursor"></div>
+  <img src="/cengizlogo.svg" id="logo" class="logo" />
 
   <h2 class="logo-text-rgb">Hesapları tesadüfler bozar.</h2>
   <img src="/cengizlogo.svg" alt="Logo" class="logo" />
@@ -313,6 +324,24 @@
   document.getElementById("ad").value = document.getElementById("ad").value.toLocaleUpperCase('tr-TR');
   document.getElementById("soyad").value = document.getElementById("soyad").value.toLocaleUpperCase('tr-TR');
 }
+<script>
+  const logo = document.getElementById('logo');
+  const strength = 20; // ne kadar manyetik etki? İstersen 10-30 arası dene
+
+  document.addEventListener('mousemove', (e) => {
+    const rect = logo.getBoundingClientRect();
+    const logoX = rect.left + rect.width / 2;
+    const logoY = rect.top + rect.height / 2;
+
+    const deltaX = (e.clientX - logoX) / strength;
+    const deltaY = (e.clientY - logoY) / strength;
+
+    logo.style.transform = `rotateX(${-deltaY}deg) rotateY(${deltaX}deg)`;
+  });
+
+  document.addEventListener('mouseleave', () => {
+    logo.style.transform = `rotateX(0deg) rotateY(0deg)`;
+  });
 </script>
 </body>
 </html>
